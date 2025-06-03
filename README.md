@@ -1,16 +1,16 @@
 # Order Infra ☁️
 
-![AWS CDK](https://img.shields.io/badge/AWS%20CDK-2.140-blue?logo=amazonaws) ![Java](https://img.shields.io/badge/Java-21-orange?logo=java) ![AWS](https://img.shields.io/badge/AWS-Learning-yellow?logo=amazonaws) ![Practice](https://img.shields.io/badge/Practice-Project-blue)
+![AWS CDK](https://img.shields.io/badge/AWS%20CDK-2.140-blue?logo=amazonaws) ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript) ![AWS](https://img.shields.io/badge/AWS-Learning-yellow?logo=amazonaws) ![Practice](https://img.shields.io/badge/Practice-Project-blue)
 
-This repository defines the **infrastructure** for an **Ordering System** using the **AWS Cloud Development Kit (CDK)** with **Java**. It’s a practice project to enhance my AWS skills, provisioning resources for the Java-based `order-service` to run on.
+This repository defines the **infrastructure** for an **Ordering System** using the **AWS Cloud Development Kit (CDK)** with **TypeScript**. It's a practice project to enhance my AWS skills, provisioning resources for the ordering system to run on.
 
 ## 🚀 Project Purpose
-This project is a hands-on exercise to learn **AWS infrastructure as code (IaC)** with CDK using Java. The `order-infra` repo provisions all necessary AWS resources for the ordering system, ensuring scalability and reliability for the `order-service` application.
+This project is a hands-on exercise to learn **AWS infrastructure as code (IaC)** with CDK using TypeScript. The `order-infra` repo provisions all necessary AWS resources for the ordering system, ensuring scalability and reliability.
 
 ## 🛠️ Tech Stack
 - **IaC Tool**: AWS CDK 2.140 🛠️
-- **Language**: Java 21 ☕
-- **Build Tool**: Maven 📦
+- **Language**: TypeScript 5.0 📘
+- **Build Tool**: npm 📦
 - **AWS Services**:
   - **DynamoDB**: For storing orders 📊
   - **Lambda**: For running order processing logic ⚡
@@ -20,7 +20,7 @@ This project is a hands-on exercise to learn **AWS infrastructure as code (IaC)*
 
 ## 🌐 AWS Resources (Provisioned)
 - **DynamoDB Table**: `OrdersTable` (partition key: `orderId`) 📋
-- **Lambda Function**: `OrderFunction` (runs Java code from `order-service`) ⚙️
+- **Lambda Function**: `OrderFunction` (runs order processing logic) ⚙️
 - **API Gateway**: REST API for `/orders` endpoints 🌐
 - **IAM Roles**: Least-privilege roles for Lambda to access DynamoDB 🔐
 - **CloudWatch Logs**: For debugging and monitoring 📊
@@ -29,14 +29,11 @@ This project is a hands-on exercise to learn **AWS infrastructure as code (IaC)*
 ```
 order-infra/
 ├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── com/example/orderinfra/
-│   │   │       ├── stack/       # CDK stack definitions
-│   │   │       └── construct/   # Custom constructs
-│   └── test/
-│       └── java/                # Unit tests
-├── pom.xml                      # Maven dependencies
+│   ├── lib/           # CDK stack definitions
+│   └── bin/           # CDK app entry point
+├── test/              # Unit tests
+├── package.json       # npm dependencies
+├── tsconfig.json      # TypeScript configuration
 ├── cdk.json
 └── README.md
 ```
@@ -48,26 +45,27 @@ order-infra/
    ```
 2. **Install dependencies**:
    ```bash
-   mvn install
+   npm install
    ```
 3. **Deploy the CDK stack** (requires AWS credentials and CDK CLI):
    ```bash
-   mvn compile exec:java -Dexec.mainClass="com.example.orderinfra.App"
+   npm run build
+   cdk deploy
    ```
 
 ## 🔗 Related Repositories
-- **Application**: [order-service](https://github.com/locngoduc/order-service.git) (Java backend)
+- **Application**: [order-service](https://github.com/locngoduc/order-service.git) (Backend service)
 - **Orchestrator**: [order-orchestrator](https://github.com/locngoduc/order-orchestrator.git) (Deployment coordination)
 
 ## 📚 Learning Goals
-- Understand AWS CDK with Java for defining cloud infrastructure.
-- Provision and manage AWS resources like DynamoDB and Lambda.
-- Integrate IaC with a Java application.
+- Understand AWS CDK with TypeScript for defining cloud infrastructure
+- Provision and manage AWS resources like DynamoDB and Lambda
+- Integrate IaC with modern TypeScript practices
 
 ## 💡 Why This Impresses
-- **AWS CDK Mastery**: Uses Java-based CDK to define a complete cloud architecture.
-- **Resource Integration**: Seamlessly connects DynamoDB, Lambda, and API Gateway.
-- **Best Practices**: Implements least-privilege IAM roles and monitoring.
+- **AWS CDK Mastery**: Uses TypeScript-based CDK to define a complete cloud architecture
+- **Resource Integration**: Seamlessly connects DynamoDB, Lambda, and API Gateway
+- **Best Practices**: Implements least-privilege IAM roles and monitoring
 
 ---
 
