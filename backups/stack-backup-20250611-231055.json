@@ -1,0 +1,2817 @@
+{
+    "TemplateBody": {
+        "Resources": {
+            "practicevpcid3F5A97E0": {
+                "Type": "AWS::EC2::VPC",
+                "Properties": {
+                    "CidrBlock": "10.0.0.0/16",
+                    "EnableDnsHostnames": true,
+                    "EnableDnsSupport": true,
+                    "InstanceTenancy": "default",
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "OrderInfraStack-prod/practice-vpc-id"
+                        }
+                    ]
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/Resource"
+                }
+            },
+            "practicevpcidpracticepublicsubnetSubnet1Subnet627BD0F8": {
+                "Type": "AWS::EC2::Subnet",
+                "Properties": {
+                    "AvailabilityZone": "ap-southeast-2a",
+                    "CidrBlock": "10.0.0.0/24",
+                    "MapPublicIpOnLaunch": true,
+                    "Tags": [
+                        {
+                            "Key": "aws-cdk:subnet-name",
+                            "Value": "practice-public-subnet"
+                        },
+                        {
+                            "Key": "aws-cdk:subnet-type",
+                            "Value": "Public"
+                        },
+                        {
+                            "Key": "Name",
+                            "Value": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet1"
+                        }
+                    ],
+                    "VpcId": {
+                        "Ref": "practicevpcid3F5A97E0"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet1/Subnet"
+                }
+            },
+            "practicevpcidpracticepublicsubnetSubnet1RouteTable9F59E26B": {
+                "Type": "AWS::EC2::RouteTable",
+                "Properties": {
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet1"
+                        }
+                    ],
+                    "VpcId": {
+                        "Ref": "practicevpcid3F5A97E0"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet1/RouteTable"
+                }
+            },
+            "practicevpcidpracticepublicsubnetSubnet1RouteTableAssociation932A2889": {
+                "Type": "AWS::EC2::SubnetRouteTableAssociation",
+                "Properties": {
+                    "RouteTableId": {
+                        "Ref": "practicevpcidpracticepublicsubnetSubnet1RouteTable9F59E26B"
+                    },
+                    "SubnetId": {
+                        "Ref": "practicevpcidpracticepublicsubnetSubnet1Subnet627BD0F8"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet1/RouteTableAssociation"
+                }
+            },
+            "practicevpcidpracticepublicsubnetSubnet1DefaultRoute967D64CC": {
+                "Type": "AWS::EC2::Route",
+                "Properties": {
+                    "DestinationCidrBlock": "0.0.0.0/0",
+                    "GatewayId": {
+                        "Ref": "practicevpcidIGWF6D66681"
+                    },
+                    "RouteTableId": {
+                        "Ref": "practicevpcidpracticepublicsubnetSubnet1RouteTable9F59E26B"
+                    }
+                },
+                "DependsOn": [
+                    "practicevpcidVPCGW047F190E"
+                ],
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet1/DefaultRoute"
+                }
+            },
+            "practicevpcidpracticepublicsubnetSubnet1EIP36877B0D": {
+                "Type": "AWS::EC2::EIP",
+                "Properties": {
+                    "Domain": "vpc",
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet1"
+                        }
+                    ]
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet1/EIP"
+                }
+            },
+            "practicevpcidpracticepublicsubnetSubnet1NATGateway06068C9D": {
+                "Type": "AWS::EC2::NatGateway",
+                "Properties": {
+                    "AllocationId": {
+                        "Fn::GetAtt": [
+                            "practicevpcidpracticepublicsubnetSubnet1EIP36877B0D",
+                            "AllocationId"
+                        ]
+                    },
+                    "SubnetId": {
+                        "Ref": "practicevpcidpracticepublicsubnetSubnet1Subnet627BD0F8"
+                    },
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet1"
+                        }
+                    ]
+                },
+                "DependsOn": [
+                    "practicevpcidpracticepublicsubnetSubnet1DefaultRoute967D64CC",
+                    "practicevpcidpracticepublicsubnetSubnet1RouteTableAssociation932A2889"
+                ],
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet1/NATGateway"
+                }
+            },
+            "practicevpcidpracticepublicsubnetSubnet2Subnet66B6EA23": {
+                "Type": "AWS::EC2::Subnet",
+                "Properties": {
+                    "AvailabilityZone": "ap-southeast-2b",
+                    "CidrBlock": "10.0.1.0/24",
+                    "MapPublicIpOnLaunch": true,
+                    "Tags": [
+                        {
+                            "Key": "aws-cdk:subnet-name",
+                            "Value": "practice-public-subnet"
+                        },
+                        {
+                            "Key": "aws-cdk:subnet-type",
+                            "Value": "Public"
+                        },
+                        {
+                            "Key": "Name",
+                            "Value": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet2"
+                        }
+                    ],
+                    "VpcId": {
+                        "Ref": "practicevpcid3F5A97E0"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet2/Subnet"
+                }
+            },
+            "practicevpcidpracticepublicsubnetSubnet2RouteTableB8A09C7E": {
+                "Type": "AWS::EC2::RouteTable",
+                "Properties": {
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet2"
+                        }
+                    ],
+                    "VpcId": {
+                        "Ref": "practicevpcid3F5A97E0"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet2/RouteTable"
+                }
+            },
+            "practicevpcidpracticepublicsubnetSubnet2RouteTableAssociationD123330A": {
+                "Type": "AWS::EC2::SubnetRouteTableAssociation",
+                "Properties": {
+                    "RouteTableId": {
+                        "Ref": "practicevpcidpracticepublicsubnetSubnet2RouteTableB8A09C7E"
+                    },
+                    "SubnetId": {
+                        "Ref": "practicevpcidpracticepublicsubnetSubnet2Subnet66B6EA23"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet2/RouteTableAssociation"
+                }
+            },
+            "practicevpcidpracticepublicsubnetSubnet2DefaultRouteA4A44689": {
+                "Type": "AWS::EC2::Route",
+                "Properties": {
+                    "DestinationCidrBlock": "0.0.0.0/0",
+                    "GatewayId": {
+                        "Ref": "practicevpcidIGWF6D66681"
+                    },
+                    "RouteTableId": {
+                        "Ref": "practicevpcidpracticepublicsubnetSubnet2RouteTableB8A09C7E"
+                    }
+                },
+                "DependsOn": [
+                    "practicevpcidVPCGW047F190E"
+                ],
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet2/DefaultRoute"
+                }
+            },
+            "practicevpcidpracticepublicsubnetSubnet2EIP29A23FD4": {
+                "Type": "AWS::EC2::EIP",
+                "Properties": {
+                    "Domain": "vpc",
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet2"
+                        }
+                    ]
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet2/EIP"
+                }
+            },
+            "practicevpcidpracticepublicsubnetSubnet2NATGatewayD4FC371F": {
+                "Type": "AWS::EC2::NatGateway",
+                "Properties": {
+                    "AllocationId": {
+                        "Fn::GetAtt": [
+                            "practicevpcidpracticepublicsubnetSubnet2EIP29A23FD4",
+                            "AllocationId"
+                        ]
+                    },
+                    "SubnetId": {
+                        "Ref": "practicevpcidpracticepublicsubnetSubnet2Subnet66B6EA23"
+                    },
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet2"
+                        }
+                    ]
+                },
+                "DependsOn": [
+                    "practicevpcidpracticepublicsubnetSubnet2DefaultRouteA4A44689",
+                    "practicevpcidpracticepublicsubnetSubnet2RouteTableAssociationD123330A"
+                ],
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet2/NATGateway"
+                }
+            },
+            "practicevpcidpracticepublicsubnetSubnet3Subnet62C7F934": {
+                "Type": "AWS::EC2::Subnet",
+                "Properties": {
+                    "AvailabilityZone": "ap-southeast-2c",
+                    "CidrBlock": "10.0.2.0/24",
+                    "MapPublicIpOnLaunch": true,
+                    "Tags": [
+                        {
+                            "Key": "aws-cdk:subnet-name",
+                            "Value": "practice-public-subnet"
+                        },
+                        {
+                            "Key": "aws-cdk:subnet-type",
+                            "Value": "Public"
+                        },
+                        {
+                            "Key": "Name",
+                            "Value": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet3"
+                        }
+                    ],
+                    "VpcId": {
+                        "Ref": "practicevpcid3F5A97E0"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet3/Subnet"
+                }
+            },
+            "practicevpcidpracticepublicsubnetSubnet3RouteTable6D32F52D": {
+                "Type": "AWS::EC2::RouteTable",
+                "Properties": {
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet3"
+                        }
+                    ],
+                    "VpcId": {
+                        "Ref": "practicevpcid3F5A97E0"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet3/RouteTable"
+                }
+            },
+            "practicevpcidpracticepublicsubnetSubnet3RouteTableAssociationB73FC347": {
+                "Type": "AWS::EC2::SubnetRouteTableAssociation",
+                "Properties": {
+                    "RouteTableId": {
+                        "Ref": "practicevpcidpracticepublicsubnetSubnet3RouteTable6D32F52D"
+                    },
+                    "SubnetId": {
+                        "Ref": "practicevpcidpracticepublicsubnetSubnet3Subnet62C7F934"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet3/RouteTableAssociation"
+                }
+            },
+            "practicevpcidpracticepublicsubnetSubnet3DefaultRoute28A79608": {
+                "Type": "AWS::EC2::Route",
+                "Properties": {
+                    "DestinationCidrBlock": "0.0.0.0/0",
+                    "GatewayId": {
+                        "Ref": "practicevpcidIGWF6D66681"
+                    },
+                    "RouteTableId": {
+                        "Ref": "practicevpcidpracticepublicsubnetSubnet3RouteTable6D32F52D"
+                    }
+                },
+                "DependsOn": [
+                    "practicevpcidVPCGW047F190E"
+                ],
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet3/DefaultRoute"
+                }
+            },
+            "practicevpcidpracticepublicsubnetSubnet3EIP876A852D": {
+                "Type": "AWS::EC2::EIP",
+                "Properties": {
+                    "Domain": "vpc",
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet3"
+                        }
+                    ]
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet3/EIP"
+                }
+            },
+            "practicevpcidpracticepublicsubnetSubnet3NATGateway5F88A847": {
+                "Type": "AWS::EC2::NatGateway",
+                "Properties": {
+                    "AllocationId": {
+                        "Fn::GetAtt": [
+                            "practicevpcidpracticepublicsubnetSubnet3EIP876A852D",
+                            "AllocationId"
+                        ]
+                    },
+                    "SubnetId": {
+                        "Ref": "practicevpcidpracticepublicsubnetSubnet3Subnet62C7F934"
+                    },
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet3"
+                        }
+                    ]
+                },
+                "DependsOn": [
+                    "practicevpcidpracticepublicsubnetSubnet3DefaultRoute28A79608",
+                    "practicevpcidpracticepublicsubnetSubnet3RouteTableAssociationB73FC347"
+                ],
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-public-subnetSubnet3/NATGateway"
+                }
+            },
+            "practicevpcidpracticeprivatesubnetSubnet1Subnet3D63540C": {
+                "Type": "AWS::EC2::Subnet",
+                "Properties": {
+                    "AvailabilityZone": "ap-southeast-2a",
+                    "CidrBlock": "10.0.3.0/24",
+                    "MapPublicIpOnLaunch": false,
+                    "Tags": [
+                        {
+                            "Key": "aws-cdk:subnet-name",
+                            "Value": "practice-private-subnet"
+                        },
+                        {
+                            "Key": "aws-cdk:subnet-type",
+                            "Value": "Private"
+                        },
+                        {
+                            "Key": "Name",
+                            "Value": "OrderInfraStack-prod/practice-vpc-id/practice-private-subnetSubnet1"
+                        }
+                    ],
+                    "VpcId": {
+                        "Ref": "practicevpcid3F5A97E0"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-private-subnetSubnet1/Subnet"
+                }
+            },
+            "practicevpcidpracticeprivatesubnetSubnet1RouteTable6187001F": {
+                "Type": "AWS::EC2::RouteTable",
+                "Properties": {
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "OrderInfraStack-prod/practice-vpc-id/practice-private-subnetSubnet1"
+                        }
+                    ],
+                    "VpcId": {
+                        "Ref": "practicevpcid3F5A97E0"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-private-subnetSubnet1/RouteTable"
+                }
+            },
+            "practicevpcidpracticeprivatesubnetSubnet1RouteTableAssociationA62CCE98": {
+                "Type": "AWS::EC2::SubnetRouteTableAssociation",
+                "Properties": {
+                    "RouteTableId": {
+                        "Ref": "practicevpcidpracticeprivatesubnetSubnet1RouteTable6187001F"
+                    },
+                    "SubnetId": {
+                        "Ref": "practicevpcidpracticeprivatesubnetSubnet1Subnet3D63540C"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-private-subnetSubnet1/RouteTableAssociation"
+                }
+            },
+            "practicevpcidpracticeprivatesubnetSubnet1DefaultRouteC6D6ABD1": {
+                "Type": "AWS::EC2::Route",
+                "Properties": {
+                    "DestinationCidrBlock": "0.0.0.0/0",
+                    "NatGatewayId": {
+                        "Ref": "practicevpcidpracticepublicsubnetSubnet1NATGateway06068C9D"
+                    },
+                    "RouteTableId": {
+                        "Ref": "practicevpcidpracticeprivatesubnetSubnet1RouteTable6187001F"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-private-subnetSubnet1/DefaultRoute"
+                }
+            },
+            "practicevpcidpracticeprivatesubnetSubnet2Subnet5B5A6182": {
+                "Type": "AWS::EC2::Subnet",
+                "Properties": {
+                    "AvailabilityZone": "ap-southeast-2b",
+                    "CidrBlock": "10.0.4.0/24",
+                    "MapPublicIpOnLaunch": false,
+                    "Tags": [
+                        {
+                            "Key": "aws-cdk:subnet-name",
+                            "Value": "practice-private-subnet"
+                        },
+                        {
+                            "Key": "aws-cdk:subnet-type",
+                            "Value": "Private"
+                        },
+                        {
+                            "Key": "Name",
+                            "Value": "OrderInfraStack-prod/practice-vpc-id/practice-private-subnetSubnet2"
+                        }
+                    ],
+                    "VpcId": {
+                        "Ref": "practicevpcid3F5A97E0"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-private-subnetSubnet2/Subnet"
+                }
+            },
+            "practicevpcidpracticeprivatesubnetSubnet2RouteTable9DBEA0FE": {
+                "Type": "AWS::EC2::RouteTable",
+                "Properties": {
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "OrderInfraStack-prod/practice-vpc-id/practice-private-subnetSubnet2"
+                        }
+                    ],
+                    "VpcId": {
+                        "Ref": "practicevpcid3F5A97E0"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-private-subnetSubnet2/RouteTable"
+                }
+            },
+            "practicevpcidpracticeprivatesubnetSubnet2RouteTableAssociation236AF077": {
+                "Type": "AWS::EC2::SubnetRouteTableAssociation",
+                "Properties": {
+                    "RouteTableId": {
+                        "Ref": "practicevpcidpracticeprivatesubnetSubnet2RouteTable9DBEA0FE"
+                    },
+                    "SubnetId": {
+                        "Ref": "practicevpcidpracticeprivatesubnetSubnet2Subnet5B5A6182"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-private-subnetSubnet2/RouteTableAssociation"
+                }
+            },
+            "practicevpcidpracticeprivatesubnetSubnet2DefaultRouteE39F462A": {
+                "Type": "AWS::EC2::Route",
+                "Properties": {
+                    "DestinationCidrBlock": "0.0.0.0/0",
+                    "NatGatewayId": {
+                        "Ref": "practicevpcidpracticepublicsubnetSubnet2NATGatewayD4FC371F"
+                    },
+                    "RouteTableId": {
+                        "Ref": "practicevpcidpracticeprivatesubnetSubnet2RouteTable9DBEA0FE"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-private-subnetSubnet2/DefaultRoute"
+                }
+            },
+            "practicevpcidpracticeprivatesubnetSubnet3Subnet51977284": {
+                "Type": "AWS::EC2::Subnet",
+                "Properties": {
+                    "AvailabilityZone": "ap-southeast-2c",
+                    "CidrBlock": "10.0.5.0/24",
+                    "MapPublicIpOnLaunch": false,
+                    "Tags": [
+                        {
+                            "Key": "aws-cdk:subnet-name",
+                            "Value": "practice-private-subnet"
+                        },
+                        {
+                            "Key": "aws-cdk:subnet-type",
+                            "Value": "Private"
+                        },
+                        {
+                            "Key": "Name",
+                            "Value": "OrderInfraStack-prod/practice-vpc-id/practice-private-subnetSubnet3"
+                        }
+                    ],
+                    "VpcId": {
+                        "Ref": "practicevpcid3F5A97E0"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-private-subnetSubnet3/Subnet"
+                }
+            },
+            "practicevpcidpracticeprivatesubnetSubnet3RouteTable50FCF33E": {
+                "Type": "AWS::EC2::RouteTable",
+                "Properties": {
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "OrderInfraStack-prod/practice-vpc-id/practice-private-subnetSubnet3"
+                        }
+                    ],
+                    "VpcId": {
+                        "Ref": "practicevpcid3F5A97E0"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-private-subnetSubnet3/RouteTable"
+                }
+            },
+            "practicevpcidpracticeprivatesubnetSubnet3RouteTableAssociation9BF3BF61": {
+                "Type": "AWS::EC2::SubnetRouteTableAssociation",
+                "Properties": {
+                    "RouteTableId": {
+                        "Ref": "practicevpcidpracticeprivatesubnetSubnet3RouteTable50FCF33E"
+                    },
+                    "SubnetId": {
+                        "Ref": "practicevpcidpracticeprivatesubnetSubnet3Subnet51977284"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-private-subnetSubnet3/RouteTableAssociation"
+                }
+            },
+            "practicevpcidpracticeprivatesubnetSubnet3DefaultRouteD15E08C8": {
+                "Type": "AWS::EC2::Route",
+                "Properties": {
+                    "DestinationCidrBlock": "0.0.0.0/0",
+                    "NatGatewayId": {
+                        "Ref": "practicevpcidpracticepublicsubnetSubnet3NATGateway5F88A847"
+                    },
+                    "RouteTableId": {
+                        "Ref": "practicevpcidpracticeprivatesubnetSubnet3RouteTable50FCF33E"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/practice-private-subnetSubnet3/DefaultRoute"
+                }
+            },
+            "practicevpcidIGWF6D66681": {
+                "Type": "AWS::EC2::InternetGateway",
+                "Properties": {
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "OrderInfraStack-prod/practice-vpc-id"
+                        }
+                    ]
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/IGW"
+                }
+            },
+            "practicevpcidVPCGW047F190E": {
+                "Type": "AWS::EC2::VPCGatewayAttachment",
+                "Properties": {
+                    "InternetGatewayId": {
+                        "Ref": "practicevpcidIGWF6D66681"
+                    },
+                    "VpcId": {
+                        "Ref": "practicevpcid3F5A97E0"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/VPCGW"
+                }
+            },
+            "practicevpcidRestrictDefaultSecurityGroupCustomResource309A531E": {
+                "Type": "Custom::VpcRestrictDefaultSG",
+                "Properties": {
+                    "ServiceToken": {
+                        "Fn::GetAtt": [
+                            "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E",
+                            "Arn"
+                        ]
+                    },
+                    "DefaultSecurityGroupId": {
+                        "Fn::GetAtt": [
+                            "practicevpcid3F5A97E0",
+                            "DefaultSecurityGroup"
+                        ]
+                    },
+                    "Account": "509399604022"
+                },
+                "UpdateReplacePolicy": "Delete",
+                "DeletionPolicy": "Delete",
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-vpc-id/RestrictDefaultSecurityGroupCustomResource/Default"
+                }
+            },
+            "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0": {
+                "Type": "AWS::IAM::Role",
+                "Properties": {
+                    "AssumeRolePolicyDocument": {
+                        "Version": "2012-10-17",
+                        "Statement": [
+                            {
+                                "Action": "sts:AssumeRole",
+                                "Effect": "Allow",
+                                "Principal": {
+                                    "Service": "lambda.amazonaws.com"
+                                }
+                            }
+                        ]
+                    },
+                    "ManagedPolicyArns": [
+                        {
+                            "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                        }
+                    ],
+                    "Policies": [
+                        {
+                            "PolicyName": "Inline",
+                            "PolicyDocument": {
+                                "Version": "2012-10-17",
+                                "Statement": [
+                                    {
+                                        "Effect": "Allow",
+                                        "Action": [
+                                            "ec2:AuthorizeSecurityGroupIngress",
+                                            "ec2:AuthorizeSecurityGroupEgress",
+                                            "ec2:RevokeSecurityGroupIngress",
+                                            "ec2:RevokeSecurityGroupEgress"
+                                        ],
+                                        "Resource": [
+                                            {
+                                                "Fn::Join": [
+                                                    "",
+                                                    [
+                                                        "arn:aws:ec2:ap-southeast-2:509399604022:security-group/",
+                                                        {
+                                                            "Fn::GetAtt": [
+                                                                "practicevpcid3F5A97E0",
+                                                                "DefaultSecurityGroup"
+                                                            ]
+                                                        }
+                                                    ]
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/Custom::VpcRestrictDefaultSGCustomResourceProvider/Role"
+                }
+            },
+            "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E": {
+                "Type": "AWS::Lambda::Function",
+                "Properties": {
+                    "Code": {
+                        "S3Bucket": "cdk-hnb659fds-assets-509399604022-ap-southeast-2",
+                        "S3Key": "7fa1e366ee8a9ded01fc355f704cff92bfd179574e6f9cfee800a3541df1b200.zip"
+                    },
+                    "Timeout": 900,
+                    "MemorySize": 128,
+                    "Handler": "__entrypoint__.handler",
+                    "Role": {
+                        "Fn::GetAtt": [
+                            "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0",
+                            "Arn"
+                        ]
+                    },
+                    "Runtime": "nodejs22.x",
+                    "Description": "Lambda function for removing all inbound/outbound rules from the VPC default security group"
+                },
+                "DependsOn": [
+                    "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0"
+                ],
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/Custom::VpcRestrictDefaultSGCustomResourceProvider/Handler",
+                    "aws:asset:path": "asset.7fa1e366ee8a9ded01fc355f704cff92bfd179574e6f9cfee800a3541df1b200",
+                    "aws:asset:property": "Code"
+                }
+            },
+            "practicesecuritygroupid13E4C5EC": {
+                "Type": "AWS::EC2::SecurityGroup",
+                "Properties": {
+                    "GroupDescription": "OrderInfraStack-prod/practice-security-group-id",
+                    "SecurityGroupEgress": [
+                        {
+                            "CidrIp": "0.0.0.0/0",
+                            "Description": "Allow all outbound traffic by default",
+                            "IpProtocol": "-1"
+                        }
+                    ],
+                    "VpcId": {
+                        "Ref": "practicevpcid3F5A97E0"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-security-group-id/Resource"
+                }
+            },
+            "practiceec2idInstanceRole6D6E1672": {
+                "Type": "AWS::IAM::Role",
+                "Properties": {
+                    "AssumeRolePolicyDocument": {
+                        "Statement": [
+                            {
+                                "Action": "sts:AssumeRole",
+                                "Effect": "Allow",
+                                "Principal": {
+                                    "Service": "ec2.amazonaws.com"
+                                }
+                            }
+                        ],
+                        "Version": "2012-10-17"
+                    },
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "OrderInfraStack-prod/practice-ec2-id"
+                        }
+                    ]
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-ec2-id/InstanceRole/Resource"
+                }
+            },
+            "practiceec2idInstanceProfile1A6422B3": {
+                "Type": "AWS::IAM::InstanceProfile",
+                "Properties": {
+                    "Roles": [
+                        {
+                            "Ref": "practiceec2idInstanceRole6D6E1672"
+                        }
+                    ]
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-ec2-id/InstanceProfile"
+                }
+            },
+            "practiceec2id9FF6F63B": {
+                "Type": "AWS::EC2::Instance",
+                "Properties": {
+                    "AvailabilityZone": "ap-southeast-2a",
+                    "IamInstanceProfile": {
+                        "Ref": "practiceec2idInstanceProfile1A6422B3"
+                    },
+                    "ImageId": {
+                        "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestal2023amikernel61x8664C96584B6F00A464EAD1953AFF4B05118Parameter"
+                    },
+                    "InstanceType": "t3.micro",
+                    "SecurityGroupIds": [
+                        {
+                            "Fn::GetAtt": [
+                                "practicesecuritygroupid13E4C5EC",
+                                "GroupId"
+                            ]
+                        }
+                    ],
+                    "SubnetId": {
+                        "Ref": "practicevpcidpracticepublicsubnetSubnet1Subnet627BD0F8"
+                    },
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "OrderInfraStack-prod/practice-ec2-id"
+                        }
+                    ],
+                    "UserData": {
+                        "Fn::Base64": "#!/bin/bash"
+                    }
+                },
+                "DependsOn": [
+                    "practiceec2idInstanceRole6D6E1672"
+                ],
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-ec2-id/Resource"
+                }
+            },
+            "practices3bucketid88CA439F": {
+                "Type": "AWS::S3::Bucket",
+                "Properties": {
+                    "Tags": [
+                        {
+                            "Key": "aws-cdk:auto-delete-objects",
+                            "Value": "true"
+                        }
+                    ],
+                    "VersioningConfiguration": {
+                        "Status": "Enabled"
+                    }
+                },
+                "UpdateReplacePolicy": "Delete",
+                "DeletionPolicy": "Delete",
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-s3-bucket-id/Resource"
+                }
+            },
+            "practices3bucketidPolicyA59F3ADA": {
+                "Type": "AWS::S3::BucketPolicy",
+                "Properties": {
+                    "Bucket": {
+                        "Ref": "practices3bucketid88CA439F"
+                    },
+                    "PolicyDocument": {
+                        "Statement": [
+                            {
+                                "Action": [
+                                    "s3:DeleteObject*",
+                                    "s3:GetBucket*",
+                                    "s3:List*",
+                                    "s3:PutBucketPolicy"
+                                ],
+                                "Effect": "Allow",
+                                "Principal": {
+                                    "AWS": {
+                                        "Fn::GetAtt": [
+                                            "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+                                            "Arn"
+                                        ]
+                                    }
+                                },
+                                "Resource": [
+                                    {
+                                        "Fn::GetAtt": [
+                                            "practices3bucketid88CA439F",
+                                            "Arn"
+                                        ]
+                                    },
+                                    {
+                                        "Fn::Join": [
+                                            "",
+                                            [
+                                                {
+                                                    "Fn::GetAtt": [
+                                                        "practices3bucketid88CA439F",
+                                                        "Arn"
+                                                    ]
+                                                },
+                                                "/*"
+                                            ]
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "Version": "2012-10-17"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-s3-bucket-id/Policy/Resource"
+                }
+            },
+            "practices3bucketidAutoDeleteObjectsCustomResource2A97B22C": {
+                "Type": "Custom::S3AutoDeleteObjects",
+                "Properties": {
+                    "ServiceToken": {
+                        "Fn::GetAtt": [
+                            "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F",
+                            "Arn"
+                        ]
+                    },
+                    "BucketName": {
+                        "Ref": "practices3bucketid88CA439F"
+                    }
+                },
+                "DependsOn": [
+                    "practices3bucketidPolicyA59F3ADA"
+                ],
+                "UpdateReplacePolicy": "Delete",
+                "DeletionPolicy": "Delete",
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-s3-bucket-id/AutoDeleteObjectsCustomResource/Default"
+                }
+            },
+            "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092": {
+                "Type": "AWS::IAM::Role",
+                "Properties": {
+                    "AssumeRolePolicyDocument": {
+                        "Version": "2012-10-17",
+                        "Statement": [
+                            {
+                                "Action": "sts:AssumeRole",
+                                "Effect": "Allow",
+                                "Principal": {
+                                    "Service": "lambda.amazonaws.com"
+                                }
+                            }
+                        ]
+                    },
+                    "ManagedPolicyArns": [
+                        {
+                            "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                        }
+                    ]
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role"
+                }
+            },
+            "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F": {
+                "Type": "AWS::Lambda::Function",
+                "Properties": {
+                    "Code": {
+                        "S3Bucket": "cdk-hnb659fds-assets-509399604022-ap-southeast-2",
+                        "S3Key": "faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6.zip"
+                    },
+                    "Timeout": 900,
+                    "MemorySize": 128,
+                    "Handler": "index.handler",
+                    "Role": {
+                        "Fn::GetAtt": [
+                            "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+                            "Arn"
+                        ]
+                    },
+                    "Runtime": "nodejs22.x",
+                    "Description": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "Lambda function for auto-deleting objects in ",
+                                {
+                                    "Ref": "practices3bucketid88CA439F"
+                                },
+                                " S3 bucket."
+                            ]
+                        ]
+                    }
+                },
+                "DependsOn": [
+                    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+                ],
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler",
+                    "aws:asset:path": "asset.faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6",
+                    "aws:asset:property": "Code"
+                }
+            },
+            "practiceorderprocessorloggroup49C7A88D": {
+                "Type": "AWS::Logs::LogGroup",
+                "Properties": {
+                    "LogGroupName": "/aws/lambda/practice-order-processor-function",
+                    "RetentionInDays": 7
+                },
+                "UpdateReplacePolicy": "Delete",
+                "DeletionPolicy": "Delete",
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-order-processor-log-group/Resource"
+                }
+            },
+            "practices3storageloggroup45DE2F36": {
+                "Type": "AWS::Logs::LogGroup",
+                "Properties": {
+                    "LogGroupName": "/aws/lambda/practice-s3-storage-function",
+                    "RetentionInDays": 7
+                },
+                "UpdateReplacePolicy": "Delete",
+                "DeletionPolicy": "Delete",
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-s3-storage-log-group/Resource"
+                }
+            },
+            "practiceapilambdaloggroupF92D90B1": {
+                "Type": "AWS::Logs::LogGroup",
+                "Properties": {
+                    "LogGroupName": "/aws/lambda/practice-api-lambda-function",
+                    "RetentionInDays": 7
+                },
+                "UpdateReplacePolicy": "Delete",
+                "DeletionPolicy": "Delete",
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-api-lambda-log-group/Resource"
+                }
+            },
+            "practicestepfunctionsloggroup80A43684": {
+                "Type": "AWS::Logs::LogGroup",
+                "Properties": {
+                    "RetentionInDays": 7
+                },
+                "UpdateReplacePolicy": "Delete",
+                "DeletionPolicy": "Delete",
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-stepfunctions-log-group/Resource"
+                }
+            },
+            "practiceorderprocessorfunctionidServiceRoleD2D3FDC7": {
+                "Type": "AWS::IAM::Role",
+                "Properties": {
+                    "AssumeRolePolicyDocument": {
+                        "Statement": [
+                            {
+                                "Action": "sts:AssumeRole",
+                                "Effect": "Allow",
+                                "Principal": {
+                                    "Service": "lambda.amazonaws.com"
+                                }
+                            }
+                        ],
+                        "Version": "2012-10-17"
+                    },
+                    "ManagedPolicyArns": [
+                        {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    "arn:",
+                                    {
+                                        "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                ]
+                            ]
+                        }
+                    ]
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-order-processor-function-id/ServiceRole/Resource"
+                }
+            },
+            "practiceorderprocessorfunctionidServiceRoleDefaultPolicy964DAB43": {
+                "Type": "AWS::IAM::Policy",
+                "Properties": {
+                    "PolicyDocument": {
+                        "Statement": [
+                            {
+                                "Action": [
+                                    "s3:Abort*",
+                                    "s3:DeleteObject*",
+                                    "s3:GetBucket*",
+                                    "s3:GetObject*",
+                                    "s3:List*",
+                                    "s3:PutObject",
+                                    "s3:PutObjectLegalHold",
+                                    "s3:PutObjectRetention",
+                                    "s3:PutObjectTagging",
+                                    "s3:PutObjectVersionTagging"
+                                ],
+                                "Effect": "Allow",
+                                "Resource": [
+                                    {
+                                        "Fn::GetAtt": [
+                                            "practices3bucketid88CA439F",
+                                            "Arn"
+                                        ]
+                                    },
+                                    {
+                                        "Fn::Join": [
+                                            "",
+                                            [
+                                                {
+                                                    "Fn::GetAtt": [
+                                                        "practices3bucketid88CA439F",
+                                                        "Arn"
+                                                    ]
+                                                },
+                                                "/*"
+                                            ]
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "Version": "2012-10-17"
+                    },
+                    "PolicyName": "practiceorderprocessorfunctionidServiceRoleDefaultPolicy964DAB43",
+                    "Roles": [
+                        {
+                            "Ref": "practiceorderprocessorfunctionidServiceRoleD2D3FDC7"
+                        }
+                    ]
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-order-processor-function-id/ServiceRole/DefaultPolicy/Resource"
+                }
+            },
+            "practiceorderprocessorfunctionidBA422DCD": {
+                "Type": "AWS::Lambda::Function",
+                "Properties": {
+                    "Code": {
+                        "ZipFile": "\n        exports.handler = async (event) => {\n          // Simulate order processing logic\n          const orderData = {\n            orderId: event.orderId || 'order-' + Date.now(),\n            customerName: event.customerName || 'Unknown Customer',\n            items: event.items || [],\n            totalAmount: event.totalAmount || 0,\n            status: 'processed',\n            timestamp: new Date().toISOString(),\n            processedBy: 'order-processor-lambda',\n            ...event\n          };\n          \n          return {\n            statusCode: 200,\n            body: orderData\n          };\n        };\n      "
+                    },
+                    "FunctionName": "practice-order-processor-function",
+                    "Handler": "index.handler",
+                    "LoggingConfig": {
+                        "LogGroup": {
+                            "Ref": "practiceorderprocessorloggroup49C7A88D"
+                        }
+                    },
+                    "Role": {
+                        "Fn::GetAtt": [
+                            "practiceorderprocessorfunctionidServiceRoleD2D3FDC7",
+                            "Arn"
+                        ]
+                    },
+                    "Runtime": "nodejs20.x",
+                    "Timeout": 30
+                },
+                "DependsOn": [
+                    "practiceorderprocessorfunctionidServiceRoleDefaultPolicy964DAB43",
+                    "practiceorderprocessorfunctionidServiceRoleD2D3FDC7"
+                ],
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-order-processor-function-id/Resource"
+                }
+            },
+            "practiceinventorycheckloggroup4112EA7B": {
+                "Type": "AWS::Logs::LogGroup",
+                "Properties": {
+                    "LogGroupName": "/aws/lambda/practice-inventory-check-function",
+                    "RetentionInDays": 7
+                },
+                "UpdateReplacePolicy": "Delete",
+                "DeletionPolicy": "Delete",
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-inventory-check-log-group/Resource"
+                }
+            },
+            "practiceinventorycheckfunctionidServiceRoleCCE55700": {
+                "Type": "AWS::IAM::Role",
+                "Properties": {
+                    "AssumeRolePolicyDocument": {
+                        "Statement": [
+                            {
+                                "Action": "sts:AssumeRole",
+                                "Effect": "Allow",
+                                "Principal": {
+                                    "Service": "lambda.amazonaws.com"
+                                }
+                            }
+                        ],
+                        "Version": "2012-10-17"
+                    },
+                    "ManagedPolicyArns": [
+                        {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    "arn:",
+                                    {
+                                        "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                ]
+                            ]
+                        }
+                    ]
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-inventory-check-function-id/ServiceRole/Resource"
+                }
+            },
+            "practiceinventorycheckfunctionidServiceRoleDefaultPolicy7316312C": {
+                "Type": "AWS::IAM::Policy",
+                "Properties": {
+                    "PolicyDocument": {
+                        "Statement": [
+                            {
+                                "Action": [
+                                    "s3:Abort*",
+                                    "s3:DeleteObject*",
+                                    "s3:GetBucket*",
+                                    "s3:GetObject*",
+                                    "s3:List*",
+                                    "s3:PutObject",
+                                    "s3:PutObjectLegalHold",
+                                    "s3:PutObjectRetention",
+                                    "s3:PutObjectTagging",
+                                    "s3:PutObjectVersionTagging"
+                                ],
+                                "Effect": "Allow",
+                                "Resource": [
+                                    {
+                                        "Fn::GetAtt": [
+                                            "practices3bucketid88CA439F",
+                                            "Arn"
+                                        ]
+                                    },
+                                    {
+                                        "Fn::Join": [
+                                            "",
+                                            [
+                                                {
+                                                    "Fn::GetAtt": [
+                                                        "practices3bucketid88CA439F",
+                                                        "Arn"
+                                                    ]
+                                                },
+                                                "/*"
+                                            ]
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "Version": "2012-10-17"
+                    },
+                    "PolicyName": "practiceinventorycheckfunctionidServiceRoleDefaultPolicy7316312C",
+                    "Roles": [
+                        {
+                            "Ref": "practiceinventorycheckfunctionidServiceRoleCCE55700"
+                        }
+                    ]
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-inventory-check-function-id/ServiceRole/DefaultPolicy/Resource"
+                }
+            },
+            "practiceinventorycheckfunctionid36611C88": {
+                "Type": "AWS::Lambda::Function",
+                "Properties": {
+                    "Code": {
+                        "ZipFile": "\n        exports.handler = async (event) => {\n          console.log('Inventory Check - Received event:', JSON.stringify(event, null, 2));\n          \n          // Simulate inventory check logic\n          const inventoryData = {\n            orderId: event.orderId || 'unknown',\n            items: event.items || [],\n            inventoryStatus: 'checked',\n            availableStock: event.items ? event.items.map(item => ({\n              ...item,\n              inStock: Math.random() > 0.1, // 90% chance in stock\n              stockLevel: Math.floor(Math.random() * 100) + 10\n            })) : [],\n            checkedAt: new Date().toISOString(),\n            checkedBy: 'inventory-check-lambda'\n          };\n          \n          console.log('Inventory Check - Result:', JSON.stringify(inventoryData, null, 2));\n          \n          return {\n            statusCode: 200,\n            body: inventoryData\n          };\n        };\n      "
+                    },
+                    "FunctionName": "practice-inventory-check-function",
+                    "Handler": "index.handler",
+                    "LoggingConfig": {
+                        "LogGroup": {
+                            "Ref": "practiceinventorycheckloggroup4112EA7B"
+                        }
+                    },
+                    "Role": {
+                        "Fn::GetAtt": [
+                            "practiceinventorycheckfunctionidServiceRoleCCE55700",
+                            "Arn"
+                        ]
+                    },
+                    "Runtime": "nodejs20.x",
+                    "Timeout": 30
+                },
+                "DependsOn": [
+                    "practiceinventorycheckfunctionidServiceRoleDefaultPolicy7316312C",
+                    "practiceinventorycheckfunctionidServiceRoleCCE55700"
+                ],
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-inventory-check-function-id/Resource"
+                }
+            },
+            "practicepaymentprocessloggroup52AFF597": {
+                "Type": "AWS::Logs::LogGroup",
+                "Properties": {
+                    "LogGroupName": "/aws/lambda/practice-payment-process-function",
+                    "RetentionInDays": 7
+                },
+                "UpdateReplacePolicy": "Delete",
+                "DeletionPolicy": "Delete",
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-payment-process-log-group/Resource"
+                }
+            },
+            "practicepaymentprocessfunctionidServiceRoleC079BB97": {
+                "Type": "AWS::IAM::Role",
+                "Properties": {
+                    "AssumeRolePolicyDocument": {
+                        "Statement": [
+                            {
+                                "Action": "sts:AssumeRole",
+                                "Effect": "Allow",
+                                "Principal": {
+                                    "Service": "lambda.amazonaws.com"
+                                }
+                            }
+                        ],
+                        "Version": "2012-10-17"
+                    },
+                    "ManagedPolicyArns": [
+                        {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    "arn:",
+                                    {
+                                        "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                ]
+                            ]
+                        }
+                    ]
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-payment-process-function-id/ServiceRole/Resource"
+                }
+            },
+            "practicepaymentprocessfunctionidServiceRoleDefaultPolicy2B7E682A": {
+                "Type": "AWS::IAM::Policy",
+                "Properties": {
+                    "PolicyDocument": {
+                        "Statement": [
+                            {
+                                "Action": [
+                                    "s3:Abort*",
+                                    "s3:DeleteObject*",
+                                    "s3:GetBucket*",
+                                    "s3:GetObject*",
+                                    "s3:List*",
+                                    "s3:PutObject",
+                                    "s3:PutObjectLegalHold",
+                                    "s3:PutObjectRetention",
+                                    "s3:PutObjectTagging",
+                                    "s3:PutObjectVersionTagging"
+                                ],
+                                "Effect": "Allow",
+                                "Resource": [
+                                    {
+                                        "Fn::GetAtt": [
+                                            "practices3bucketid88CA439F",
+                                            "Arn"
+                                        ]
+                                    },
+                                    {
+                                        "Fn::Join": [
+                                            "",
+                                            [
+                                                {
+                                                    "Fn::GetAtt": [
+                                                        "practices3bucketid88CA439F",
+                                                        "Arn"
+                                                    ]
+                                                },
+                                                "/*"
+                                            ]
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "Version": "2012-10-17"
+                    },
+                    "PolicyName": "practicepaymentprocessfunctionidServiceRoleDefaultPolicy2B7E682A",
+                    "Roles": [
+                        {
+                            "Ref": "practicepaymentprocessfunctionidServiceRoleC079BB97"
+                        }
+                    ]
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-payment-process-function-id/ServiceRole/DefaultPolicy/Resource"
+                }
+            },
+            "practicepaymentprocessfunctionid7E29B3A8": {
+                "Type": "AWS::Lambda::Function",
+                "Properties": {
+                    "Code": {
+                        "ZipFile": "\n        exports.handler = async (event) => {\n          console.log('Payment Process - Received event:', JSON.stringify(event, null, 2));\n          \n          // Simulate payment processing logic\n          const paymentData = {\n            orderId: event.orderId || 'unknown',\n            totalAmount: event.totalAmount || 0,\n            paymentStatus: Math.random() > 0.05 ? 'approved' : 'declined', // 95% approval rate\n            transactionId: 'txn-' + Date.now(),\n            paymentMethod: 'credit_card',\n            processedAt: new Date().toISOString(),\n            processedBy: 'payment-process-lambda'\n          };\n          \n          console.log('Payment Process - Result:', JSON.stringify(paymentData, null, 2));\n          \n          return {\n            statusCode: 200,\n            body: paymentData\n          };\n        };\n      "
+                    },
+                    "FunctionName": "practice-payment-process-function",
+                    "Handler": "index.handler",
+                    "LoggingConfig": {
+                        "LogGroup": {
+                            "Ref": "practicepaymentprocessloggroup52AFF597"
+                        }
+                    },
+                    "Role": {
+                        "Fn::GetAtt": [
+                            "practicepaymentprocessfunctionidServiceRoleC079BB97",
+                            "Arn"
+                        ]
+                    },
+                    "Runtime": "nodejs20.x",
+                    "Timeout": 30
+                },
+                "DependsOn": [
+                    "practicepaymentprocessfunctionidServiceRoleDefaultPolicy2B7E682A",
+                    "practicepaymentprocessfunctionidServiceRoleC079BB97"
+                ],
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-payment-process-function-id/Resource"
+                }
+            },
+            "practices3storagefunctionidServiceRole9FDD47D0": {
+                "Type": "AWS::IAM::Role",
+                "Properties": {
+                    "AssumeRolePolicyDocument": {
+                        "Statement": [
+                            {
+                                "Action": "sts:AssumeRole",
+                                "Effect": "Allow",
+                                "Principal": {
+                                    "Service": "lambda.amazonaws.com"
+                                }
+                            }
+                        ],
+                        "Version": "2012-10-17"
+                    },
+                    "ManagedPolicyArns": [
+                        {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    "arn:",
+                                    {
+                                        "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                ]
+                            ]
+                        }
+                    ]
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-s3-storage-function-id/ServiceRole/Resource"
+                }
+            },
+            "practices3storagefunctionidServiceRoleDefaultPolicyBA0D2A3D": {
+                "Type": "AWS::IAM::Policy",
+                "Properties": {
+                    "PolicyDocument": {
+                        "Statement": [
+                            {
+                                "Action": [
+                                    "s3:Abort*",
+                                    "s3:DeleteObject*",
+                                    "s3:GetBucket*",
+                                    "s3:GetObject*",
+                                    "s3:List*",
+                                    "s3:PutObject",
+                                    "s3:PutObjectLegalHold",
+                                    "s3:PutObjectRetention",
+                                    "s3:PutObjectTagging",
+                                    "s3:PutObjectVersionTagging"
+                                ],
+                                "Effect": "Allow",
+                                "Resource": [
+                                    {
+                                        "Fn::GetAtt": [
+                                            "practices3bucketid88CA439F",
+                                            "Arn"
+                                        ]
+                                    },
+                                    {
+                                        "Fn::Join": [
+                                            "",
+                                            [
+                                                {
+                                                    "Fn::GetAtt": [
+                                                        "practices3bucketid88CA439F",
+                                                        "Arn"
+                                                    ]
+                                                },
+                                                "/*"
+                                            ]
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "Version": "2012-10-17"
+                    },
+                    "PolicyName": "practices3storagefunctionidServiceRoleDefaultPolicyBA0D2A3D",
+                    "Roles": [
+                        {
+                            "Ref": "practices3storagefunctionidServiceRole9FDD47D0"
+                        }
+                    ]
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-s3-storage-function-id/ServiceRole/DefaultPolicy/Resource"
+                }
+            },
+            "practices3storagefunctionid2EEAF9BB": {
+                "Type": "AWS::Lambda::Function",
+                "Properties": {
+                    "Code": {
+                        "ZipFile": "\n        const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');\n        const s3Client = new S3Client();\n        \n        exports.handler = async (event) => {\n          console.log('S3 Storage - Received event:', JSON.stringify(event, null, 2));\n          \n          try {\n            const params = {\n              Bucket: process.env.S3_BUCKET_NAME,\n              Key: `orders/${event.body.orderId}.json`,\n              Body: JSON.stringify(event.body, null, 2),\n              ContentType: 'application/json'\n            };\n            \n            console.log('S3 Storage - Putting object with params:', JSON.stringify(params, null, 2));\n            \n            const command = new PutObjectCommand(params);\n            const result = await s3Client.send(command);\n            \n            console.log('S3 Storage - Object stored successfully:', JSON.stringify(result, null, 2));\n            \n            const finalResult = {\n              statusCode: 200,\n              body: {\n                ...event.body,\n                s3Location: `s3://${process.env.S3_BUCKET_NAME}/orders/${event.body.orderId}.json`,\n                etag: result.ETag,\n                storedAt: new Date().toISOString(),\n                processedBy: 's3-storage-lambda'\n              }\n            };\n            \n            return finalResult;\n          } catch (error) {\n            console.error('S3 Storage - Error occurred:', error);\n            throw error;\n          }\n        };\n      "
+                    },
+                    "Environment": {
+                        "Variables": {
+                            "S3_BUCKET_NAME": {
+                                "Ref": "practices3bucketid88CA439F"
+                            }
+                        }
+                    },
+                    "FunctionName": "practice-s3-storage-function",
+                    "Handler": "index.handler",
+                    "LoggingConfig": {
+                        "LogGroup": {
+                            "Ref": "practices3storageloggroup45DE2F36"
+                        }
+                    },
+                    "Role": {
+                        "Fn::GetAtt": [
+                            "practices3storagefunctionidServiceRole9FDD47D0",
+                            "Arn"
+                        ]
+                    },
+                    "Runtime": "nodejs20.x",
+                    "Timeout": 30
+                },
+                "DependsOn": [
+                    "practices3storagefunctionidServiceRoleDefaultPolicyBA0D2A3D",
+                    "practices3storagefunctionidServiceRole9FDD47D0"
+                ],
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-s3-storage-function-id/Resource"
+                }
+            },
+            "practicemergeresultsloggroup3A922DAD": {
+                "Type": "AWS::Logs::LogGroup",
+                "Properties": {
+                    "LogGroupName": "/aws/lambda/practice-merge-results-function",
+                    "RetentionInDays": 7
+                },
+                "UpdateReplacePolicy": "Delete",
+                "DeletionPolicy": "Delete",
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-merge-results-log-group/Resource"
+                }
+            },
+            "practicemergeresultsfunctionidServiceRoleEEBA405D": {
+                "Type": "AWS::IAM::Role",
+                "Properties": {
+                    "AssumeRolePolicyDocument": {
+                        "Statement": [
+                            {
+                                "Action": "sts:AssumeRole",
+                                "Effect": "Allow",
+                                "Principal": {
+                                    "Service": "lambda.amazonaws.com"
+                                }
+                            }
+                        ],
+                        "Version": "2012-10-17"
+                    },
+                    "ManagedPolicyArns": [
+                        {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    "arn:",
+                                    {
+                                        "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                ]
+                            ]
+                        }
+                    ]
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-merge-results-function-id/ServiceRole/Resource"
+                }
+            },
+            "practicemergeresultsfunctionid3AFA4E17": {
+                "Type": "AWS::Lambda::Function",
+                "Properties": {
+                    "Code": {
+                        "ZipFile": "\n        exports.handler = async (event) => {\n          console.log('Merge Results - Received event:', JSON.stringify(event, null, 2));\n          \n          // Extract results from parallel execution\n          const orderData = event.orderProcessing?.body || {};\n          const inventoryData = event.parallelResults?.[0]?.body || {};\n          const paymentData = event.parallelResults?.[1]?.body || {};\n          \n          // Merge all results\n          const mergedResult = {\n            orderId: orderData.orderId || inventoryData.orderId || paymentData.orderId,\n            orderDetails: orderData,\n            inventoryCheck: inventoryData,\n            paymentProcessing: paymentData,\n            finalStatus: paymentData.paymentStatus === 'approved' ? 'completed' : 'failed',\n            processedAt: new Date().toISOString(),\n            processedBy: 'merge-results-lambda'\n          };\n          \n          console.log('Merge Results - Final result:', JSON.stringify(mergedResult, null, 2));\n          \n          return {\n            statusCode: 200,\n            body: mergedResult\n          };\n        };\n      "
+                    },
+                    "FunctionName": "practice-merge-results-function",
+                    "Handler": "index.handler",
+                    "LoggingConfig": {
+                        "LogGroup": {
+                            "Ref": "practicemergeresultsloggroup3A922DAD"
+                        }
+                    },
+                    "Role": {
+                        "Fn::GetAtt": [
+                            "practicemergeresultsfunctionidServiceRoleEEBA405D",
+                            "Arn"
+                        ]
+                    },
+                    "Runtime": "nodejs20.x",
+                    "Timeout": 30
+                },
+                "DependsOn": [
+                    "practicemergeresultsfunctionidServiceRoleEEBA405D"
+                ],
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-merge-results-function-id/Resource"
+                }
+            },
+            "practiceorderstatemachineidRole2749924A": {
+                "Type": "AWS::IAM::Role",
+                "Properties": {
+                    "AssumeRolePolicyDocument": {
+                        "Statement": [
+                            {
+                                "Action": "sts:AssumeRole",
+                                "Effect": "Allow",
+                                "Principal": {
+                                    "Service": "states.amazonaws.com"
+                                }
+                            }
+                        ],
+                        "Version": "2012-10-17"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-order-state-machine-id/Role/Resource"
+                }
+            },
+            "practiceorderstatemachineidRoleDefaultPolicyA44D5EE1": {
+                "Type": "AWS::IAM::Policy",
+                "Properties": {
+                    "PolicyDocument": {
+                        "Statement": [
+                            {
+                                "Action": "lambda:InvokeFunction",
+                                "Effect": "Allow",
+                                "Resource": [
+                                    {
+                                        "Fn::GetAtt": [
+                                            "practiceinventorycheckfunctionid36611C88",
+                                            "Arn"
+                                        ]
+                                    },
+                                    {
+                                        "Fn::GetAtt": [
+                                            "practicemergeresultsfunctionid3AFA4E17",
+                                            "Arn"
+                                        ]
+                                    },
+                                    {
+                                        "Fn::GetAtt": [
+                                            "practiceorderprocessorfunctionidBA422DCD",
+                                            "Arn"
+                                        ]
+                                    },
+                                    {
+                                        "Fn::GetAtt": [
+                                            "practicepaymentprocessfunctionid7E29B3A8",
+                                            "Arn"
+                                        ]
+                                    },
+                                    {
+                                        "Fn::GetAtt": [
+                                            "practices3storagefunctionid2EEAF9BB",
+                                            "Arn"
+                                        ]
+                                    },
+                                    {
+                                        "Fn::Join": [
+                                            "",
+                                            [
+                                                {
+                                                    "Fn::GetAtt": [
+                                                        "practiceinventorycheckfunctionid36611C88",
+                                                        "Arn"
+                                                    ]
+                                                },
+                                                ":*"
+                                            ]
+                                        ]
+                                    },
+                                    {
+                                        "Fn::Join": [
+                                            "",
+                                            [
+                                                {
+                                                    "Fn::GetAtt": [
+                                                        "practicemergeresultsfunctionid3AFA4E17",
+                                                        "Arn"
+                                                    ]
+                                                },
+                                                ":*"
+                                            ]
+                                        ]
+                                    },
+                                    {
+                                        "Fn::Join": [
+                                            "",
+                                            [
+                                                {
+                                                    "Fn::GetAtt": [
+                                                        "practiceorderprocessorfunctionidBA422DCD",
+                                                        "Arn"
+                                                    ]
+                                                },
+                                                ":*"
+                                            ]
+                                        ]
+                                    },
+                                    {
+                                        "Fn::Join": [
+                                            "",
+                                            [
+                                                {
+                                                    "Fn::GetAtt": [
+                                                        "practicepaymentprocessfunctionid7E29B3A8",
+                                                        "Arn"
+                                                    ]
+                                                },
+                                                ":*"
+                                            ]
+                                        ]
+                                    },
+                                    {
+                                        "Fn::Join": [
+                                            "",
+                                            [
+                                                {
+                                                    "Fn::GetAtt": [
+                                                        "practices3storagefunctionid2EEAF9BB",
+                                                        "Arn"
+                                                    ]
+                                                },
+                                                ":*"
+                                            ]
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "Action": [
+                                    "logs:CreateLogDelivery",
+                                    "logs:DeleteLogDelivery",
+                                    "logs:DescribeLogGroups",
+                                    "logs:DescribeResourcePolicies",
+                                    "logs:GetLogDelivery",
+                                    "logs:ListLogDeliveries",
+                                    "logs:PutResourcePolicy",
+                                    "logs:UpdateLogDelivery"
+                                ],
+                                "Effect": "Allow",
+                                "Resource": "*"
+                            }
+                        ],
+                        "Version": "2012-10-17"
+                    },
+                    "PolicyName": "practiceorderstatemachineidRoleDefaultPolicyA44D5EE1",
+                    "Roles": [
+                        {
+                            "Ref": "practiceorderstatemachineidRole2749924A"
+                        }
+                    ]
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-order-state-machine-id/Role/DefaultPolicy/Resource"
+                }
+            },
+            "practiceorderstatemachineidE804DBEA": {
+                "Type": "AWS::StepFunctions::StateMachine",
+                "Properties": {
+                    "DefinitionString": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "{\"StartAt\":\"practice-process-order-task\",\"States\":{\"practice-process-order-task\":{\"Next\":\"prepare-parallel-input\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ClientExecutionTimeoutException\",\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"OutputPath\":\"$.Payload\",\"Resource\":\"arn:",
+                                {
+                                    "Ref": "AWS::Partition"
+                                },
+                                ":states:::lambda:invoke\",\"Parameters\":{\"FunctionName\":\"",
+                                {
+                                    "Fn::GetAtt": [
+                                        "practiceorderprocessorfunctionidBA422DCD",
+                                        "Arn"
+                                    ]
+                                },
+                                "\",\"Payload.$\":\"$\"}},\"prepare-parallel-input\":{\"Type\":\"Pass\",\"ResultPath\":\"$.workflowState\",\"Parameters\":{\"orderProcessing.$\":\"$\",\"parallelResults.$\":\"$\"},\"Next\":\"practice-parallel-processing\"},\"practice-parallel-processing\":{\"Type\":\"Parallel\",\"Comment\":\"Process inventory check and payment in parallel\",\"Next\":\"combine-results\",\"Branches\":[{\"StartAt\":\"practice-inventory-check-task\",\"States\":{\"practice-inventory-check-task\":{\"End\":true,\"Retry\":[{\"ErrorEquals\":[\"Lambda.ClientExecutionTimeoutException\",\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"OutputPath\":\"$.Payload\",\"Resource\":\"arn:",
+                                {
+                                    "Ref": "AWS::Partition"
+                                },
+                                ":states:::lambda:invoke\",\"Parameters\":{\"FunctionName\":\"",
+                                {
+                                    "Fn::GetAtt": [
+                                        "practiceinventorycheckfunctionid36611C88",
+                                        "Arn"
+                                    ]
+                                },
+                                "\",\"Payload.$\":\"$\"}}}},{\"StartAt\":\"practice-payment-process-task\",\"States\":{\"practice-payment-process-task\":{\"End\":true,\"Retry\":[{\"ErrorEquals\":[\"Lambda.ClientExecutionTimeoutException\",\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"OutputPath\":\"$.Payload\",\"Resource\":\"arn:",
+                                {
+                                    "Ref": "AWS::Partition"
+                                },
+                                ":states:::lambda:invoke\",\"Parameters\":{\"FunctionName\":\"",
+                                {
+                                    "Fn::GetAtt": [
+                                        "practicepaymentprocessfunctionid7E29B3A8",
+                                        "Arn"
+                                    ]
+                                },
+                                "\",\"Payload.$\":\"$\"}}}}]},\"combine-results\":{\"Type\":\"Pass\",\"Parameters\":{\"orderProcessing.$\":\"$.workflowState.orderProcessing\",\"parallelResults.$\":\"$\"},\"Next\":\"practice-merge-results-task\"},\"practice-merge-results-task\":{\"Next\":\"practice-store-order-s3-task\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ClientExecutionTimeoutException\",\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"InputPath\":\"$\",\"OutputPath\":\"$.mergedResults.Payload\",\"ResultPath\":\"$.mergedResults\",\"Resource\":\"arn:",
+                                {
+                                    "Ref": "AWS::Partition"
+                                },
+                                ":states:::lambda:invoke\",\"Parameters\":{\"FunctionName\":\"",
+                                {
+                                    "Fn::GetAtt": [
+                                        "practicemergeresultsfunctionid3AFA4E17",
+                                        "Arn"
+                                    ]
+                                },
+                                "\",\"Payload.$\":\"$\"}},\"practice-store-order-s3-task\":{\"End\":true,\"Retry\":[{\"ErrorEquals\":[\"Lambda.ClientExecutionTimeoutException\",\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"OutputPath\":\"$.Payload\",\"Resource\":\"arn:",
+                                {
+                                    "Ref": "AWS::Partition"
+                                },
+                                ":states:::lambda:invoke\",\"Parameters\":{\"FunctionName\":\"",
+                                {
+                                    "Fn::GetAtt": [
+                                        "practices3storagefunctionid2EEAF9BB",
+                                        "Arn"
+                                    ]
+                                },
+                                "\",\"Payload.$\":\"$\"}}},\"TimeoutSeconds\":300}"
+                            ]
+                        ]
+                    },
+                    "LoggingConfiguration": {
+                        "Destinations": [
+                            {
+                                "CloudWatchLogsLogGroup": {
+                                    "LogGroupArn": {
+                                        "Fn::GetAtt": [
+                                            "practicestepfunctionsloggroup80A43684",
+                                            "Arn"
+                                        ]
+                                    }
+                                }
+                            }
+                        ],
+                        "Level": "ALL"
+                    },
+                    "RoleArn": {
+                        "Fn::GetAtt": [
+                            "practiceorderstatemachineidRole2749924A",
+                            "Arn"
+                        ]
+                    },
+                    "StateMachineName": "practice-order-workflow"
+                },
+                "DependsOn": [
+                    "practiceorderstatemachineidRoleDefaultPolicyA44D5EE1",
+                    "practiceorderstatemachineidRole2749924A"
+                ],
+                "UpdateReplacePolicy": "Delete",
+                "DeletionPolicy": "Delete",
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-order-state-machine-id/Resource"
+                }
+            },
+            "practiceapilambdafunctionidServiceRole52FC378B": {
+                "Type": "AWS::IAM::Role",
+                "Properties": {
+                    "AssumeRolePolicyDocument": {
+                        "Statement": [
+                            {
+                                "Action": "sts:AssumeRole",
+                                "Effect": "Allow",
+                                "Principal": {
+                                    "Service": "lambda.amazonaws.com"
+                                }
+                            }
+                        ],
+                        "Version": "2012-10-17"
+                    },
+                    "ManagedPolicyArns": [
+                        {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    "arn:",
+                                    {
+                                        "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                ]
+                            ]
+                        }
+                    ]
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-api-lambda-function-id/ServiceRole/Resource"
+                }
+            },
+            "practiceapilambdafunctionidServiceRoleDefaultPolicy47E73281": {
+                "Type": "AWS::IAM::Policy",
+                "Properties": {
+                    "PolicyDocument": {
+                        "Statement": [
+                            {
+                                "Action": "states:StartExecution",
+                                "Effect": "Allow",
+                                "Resource": {
+                                    "Ref": "practiceorderstatemachineidE804DBEA"
+                                }
+                            },
+                            {
+                                "Action": [
+                                    "s3:GetBucket*",
+                                    "s3:GetObject*",
+                                    "s3:List*"
+                                ],
+                                "Effect": "Allow",
+                                "Resource": [
+                                    {
+                                        "Fn::GetAtt": [
+                                            "practices3bucketid88CA439F",
+                                            "Arn"
+                                        ]
+                                    },
+                                    {
+                                        "Fn::Join": [
+                                            "",
+                                            [
+                                                {
+                                                    "Fn::GetAtt": [
+                                                        "practices3bucketid88CA439F",
+                                                        "Arn"
+                                                    ]
+                                                },
+                                                "/*"
+                                            ]
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "Version": "2012-10-17"
+                    },
+                    "PolicyName": "practiceapilambdafunctionidServiceRoleDefaultPolicy47E73281",
+                    "Roles": [
+                        {
+                            "Ref": "practiceapilambdafunctionidServiceRole52FC378B"
+                        }
+                    ]
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-api-lambda-function-id/ServiceRole/DefaultPolicy/Resource"
+                }
+            },
+            "practiceapilambdafunctionid2902962A": {
+                "Type": "AWS::Lambda::Function",
+                "Properties": {
+                    "Code": {
+                        "ZipFile": "\n        const { SFNClient, StartExecutionCommand } = require('@aws-sdk/client-sfn');\n        const { S3Client, ListObjectsV2Command, GetObjectCommand } = require('@aws-sdk/client-s3');\n        const sfnClient = new SFNClient();\n        const s3Client = new S3Client();\n        \n        exports.handler = async (event) => {\n          console.log('Received event:', JSON.stringify(event, null, 2));\n          \n          try {\n            const httpMethod = event.httpMethod;\n            \n            if (httpMethod === 'GET') {\n              // Handle GET request - retrieve order data\n              return await handleGetRequest(event);\n            } else if (httpMethod === 'POST') {\n              // Handle POST request - start workflow\n              return await handlePostRequest(event);\n            } else {\n              return {\n                statusCode: 405,\n                headers: {\n                  'Content-Type': 'application/json',\n                  'Access-Control-Allow-Origin': '*'\n                },\n                body: JSON.stringify({\n                  message: 'Method not allowed',\n                  allowedMethods: ['GET', 'POST']\n                })\n              };\n            }\n          } catch (error) {\n            console.error('Error occurred:', error);\n            return {\n              statusCode: 500,\n              headers: {\n                'Content-Type': 'application/json',\n                'Access-Control-Allow-Origin': '*'\n              },\n              body: JSON.stringify({\n                message: 'Internal server error',\n                error: error.message,\n                timestamp: new Date().toISOString()\n              })\n            };\n          }\n        };\n        \n        async function handleGetRequest(event) {\n          console.log('Handling GET request');\n          \n          try {\n            // List objects in the orders folder\n            const listParams = {\n              Bucket: process.env.S3_BUCKET_NAME,\n              Prefix: 'orders/',\n              MaxKeys: 50\n            };\n            \n            const listCommand = new ListObjectsV2Command(listParams);\n            const listResult = await s3Client.send(listCommand);\n            \n            console.log('S3 list result:', JSON.stringify(listResult, null, 2));\n            \n            if (!listResult.Contents || listResult.Contents.length === 0) {\n              return {\n                statusCode: 200,\n                headers: {\n                  'Content-Type': 'application/json',\n                  'Access-Control-Allow-Origin': '*'\n                },\n                body: JSON.stringify({\n                  message: 'No orders found',\n                  orders: [],\n                  totalCount: 0,\n                  retrievedAt: new Date().toISOString()\n                })\n              };\n            }\n            \n            // Retrieve the most recent orders (limit to 10)\n            const recentOrders = listResult.Contents\n              .sort((a, b) => new Date(b.LastModified) - new Date(a.LastModified))\n              .slice(0, 10);\n            \n            const orders = [];\n            for (const orderFile of recentOrders) {\n              try {\n                const getParams = {\n                  Bucket: process.env.S3_BUCKET_NAME,\n                  Key: orderFile.Key\n                };\n                \n                const getCommand = new GetObjectCommand(getParams);\n                const getResult = await s3Client.send(getCommand);\n                \n                const orderData = JSON.parse(await getResult.Body.transformToString());\n                orders.push({\n                  ...orderData,\n                  fileName: orderFile.Key,\n                  lastModified: orderFile.LastModified,\n                  size: orderFile.Size\n                });\n              } catch (err) {\n                console.error(`Error reading order file ${orderFile.Key}:`, err);\n              }\n            }\n            \n            return {\n              statusCode: 200,\n              headers: {\n                'Content-Type': 'application/json',\n                'Access-Control-Allow-Origin': '*'\n              },\n              body: JSON.stringify({\n                message: 'Orders retrieved successfully',\n                orders: orders,\n                totalCount: listResult.KeyCount || 0,\n                retrievedAt: new Date().toISOString(),\n                pagination: {\n                  limit: 10,\n                  hasMore: listResult.IsTruncated || false\n                }\n              })\n            };\n            \n          } catch (error) {\n            console.error('Error in GET request:', error);\n            throw error;\n          }\n        }\n        \n        async function handlePostRequest(event) {\n          console.log('Handling POST request');\n          \n          const body = event.body ? JSON.parse(event.body) : {};\n          console.log('Parsed body:', JSON.stringify(body, null, 2));\n          \n          // Validate required fields for order creation\n          if (!body.orderId && !body.customerName) {\n            body.orderId = 'order-' + Date.now();\n          }\n          \n          // Start Step Functions execution\n          const executionName = 'execution-' + Date.now();\n          const params = {\n            stateMachineArn: process.env.STATE_MACHINE_ARN,\n            input: JSON.stringify(body),\n            name: executionName\n          };\n          \n          console.log('Starting execution with params:', JSON.stringify(params, null, 2));\n          \n          const command = new StartExecutionCommand(params);\n          const result = await sfnClient.send(command);\n          \n          console.log('Step Functions execution started:', JSON.stringify(result, null, 2));\n          \n          const response = {\n            message: 'Order workflow started successfully',\n            executionArn: result.executionArn,\n            executionName: executionName,\n            startDate: result.startDate,\n            inputData: body,\n            workflowStatus: 'started'\n          };\n          \n          return {\n            statusCode: 200,\n            headers: {\n              'Content-Type': 'application/json',\n              'Access-Control-Allow-Origin': '*',\n              'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',\n              'Access-Control-Allow-Headers': 'Content-Type, Authorization'\n            },\n            body: JSON.stringify(response)\n          };\n        }\n      "
+                    },
+                    "Environment": {
+                        "Variables": {
+                            "STATE_MACHINE_ARN": {
+                                "Ref": "practiceorderstatemachineidE804DBEA"
+                            },
+                            "S3_BUCKET_NAME": {
+                                "Ref": "practices3bucketid88CA439F"
+                            }
+                        }
+                    },
+                    "FunctionName": "practice-api-lambda-function",
+                    "Handler": "index.handler",
+                    "LoggingConfig": {
+                        "LogGroup": {
+                            "Ref": "practiceapilambdaloggroupF92D90B1"
+                        }
+                    },
+                    "Role": {
+                        "Fn::GetAtt": [
+                            "practiceapilambdafunctionidServiceRole52FC378B",
+                            "Arn"
+                        ]
+                    },
+                    "Runtime": "nodejs20.x",
+                    "Timeout": 30
+                },
+                "DependsOn": [
+                    "practiceapilambdafunctionidServiceRoleDefaultPolicy47E73281",
+                    "practiceapilambdafunctionidServiceRole52FC378B"
+                ],
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-api-lambda-function-id/Resource"
+                }
+            },
+            "practiceapigatewayid9A50BDA2": {
+                "Type": "AWS::ApiGateway::RestApi",
+                "Properties": {
+                    "Description": "API Gateway for Order Processing System",
+                    "Name": "practice-order-api"
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-api-gateway-id/Resource"
+                }
+            },
+            "practiceapigatewayidDeployment96E6963D59e28c00b7d1bc02691c1dea2369d14d": {
+                "Type": "AWS::ApiGateway::Deployment",
+                "Properties": {
+                    "Description": "API Gateway for Order Processing System",
+                    "RestApiId": {
+                        "Ref": "practiceapigatewayid9A50BDA2"
+                    }
+                },
+                "DependsOn": [
+                    "practiceapigatewayidOPTIONS34891756",
+                    "practiceapigatewayidordersGET0B739A13",
+                    "practiceapigatewayidordersOPTIONS47AD6C16",
+                    "practiceapigatewayidordersPOST12A9314D",
+                    "practiceapigatewayidorders1ACB7C53"
+                ],
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-api-gateway-id/Deployment/Resource"
+                }
+            },
+            "practiceapigatewayidDeploymentStageprod9F073DB7": {
+                "Type": "AWS::ApiGateway::Stage",
+                "Properties": {
+                    "DeploymentId": {
+                        "Ref": "practiceapigatewayidDeployment96E6963D59e28c00b7d1bc02691c1dea2369d14d"
+                    },
+                    "RestApiId": {
+                        "Ref": "practiceapigatewayid9A50BDA2"
+                    },
+                    "StageName": "prod"
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-api-gateway-id/DeploymentStage.prod/Resource"
+                }
+            },
+            "practiceapigatewayidOPTIONS34891756": {
+                "Type": "AWS::ApiGateway::Method",
+                "Properties": {
+                    "ApiKeyRequired": false,
+                    "AuthorizationType": "NONE",
+                    "HttpMethod": "OPTIONS",
+                    "Integration": {
+                        "IntegrationResponses": [
+                            {
+                                "ResponseParameters": {
+                                    "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+                                    "method.response.header.Access-Control-Allow-Origin": "'*'",
+                                    "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+                                },
+                                "StatusCode": "204"
+                            }
+                        ],
+                        "RequestTemplates": {
+                            "application/json": "{ statusCode: 200 }"
+                        },
+                        "Type": "MOCK"
+                    },
+                    "MethodResponses": [
+                        {
+                            "ResponseParameters": {
+                                "method.response.header.Access-Control-Allow-Headers": true,
+                                "method.response.header.Access-Control-Allow-Origin": true,
+                                "method.response.header.Access-Control-Allow-Methods": true
+                            },
+                            "StatusCode": "204"
+                        }
+                    ],
+                    "ResourceId": {
+                        "Fn::GetAtt": [
+                            "practiceapigatewayid9A50BDA2",
+                            "RootResourceId"
+                        ]
+                    },
+                    "RestApiId": {
+                        "Ref": "practiceapigatewayid9A50BDA2"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-api-gateway-id/Default/OPTIONS/Resource"
+                }
+            },
+            "practiceapigatewayidorders1ACB7C53": {
+                "Type": "AWS::ApiGateway::Resource",
+                "Properties": {
+                    "ParentId": {
+                        "Fn::GetAtt": [
+                            "practiceapigatewayid9A50BDA2",
+                            "RootResourceId"
+                        ]
+                    },
+                    "PathPart": "orders",
+                    "RestApiId": {
+                        "Ref": "practiceapigatewayid9A50BDA2"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-api-gateway-id/Default/orders/Resource"
+                }
+            },
+            "practiceapigatewayidordersOPTIONS47AD6C16": {
+                "Type": "AWS::ApiGateway::Method",
+                "Properties": {
+                    "ApiKeyRequired": false,
+                    "AuthorizationType": "NONE",
+                    "HttpMethod": "OPTIONS",
+                    "Integration": {
+                        "IntegrationResponses": [
+                            {
+                                "ResponseParameters": {
+                                    "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+                                    "method.response.header.Access-Control-Allow-Origin": "'*'",
+                                    "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+                                },
+                                "StatusCode": "204"
+                            }
+                        ],
+                        "RequestTemplates": {
+                            "application/json": "{ statusCode: 200 }"
+                        },
+                        "Type": "MOCK"
+                    },
+                    "MethodResponses": [
+                        {
+                            "ResponseParameters": {
+                                "method.response.header.Access-Control-Allow-Headers": true,
+                                "method.response.header.Access-Control-Allow-Origin": true,
+                                "method.response.header.Access-Control-Allow-Methods": true
+                            },
+                            "StatusCode": "204"
+                        }
+                    ],
+                    "ResourceId": {
+                        "Ref": "practiceapigatewayidorders1ACB7C53"
+                    },
+                    "RestApiId": {
+                        "Ref": "practiceapigatewayid9A50BDA2"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-api-gateway-id/Default/orders/OPTIONS/Resource"
+                }
+            },
+            "practiceapigatewayidordersPOSTApiPermissionOrderInfraStackprodpracticeapigatewayid4671C6F3POSTordersC5E99562": {
+                "Type": "AWS::Lambda::Permission",
+                "Properties": {
+                    "Action": "lambda:InvokeFunction",
+                    "FunctionName": {
+                        "Fn::GetAtt": [
+                            "practiceapilambdafunctionid2902962A",
+                            "Arn"
+                        ]
+                    },
+                    "Principal": "apigateway.amazonaws.com",
+                    "SourceArn": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "arn:aws:execute-api:ap-southeast-2:509399604022:",
+                                {
+                                    "Ref": "practiceapigatewayid9A50BDA2"
+                                },
+                                "/",
+                                {
+                                    "Ref": "practiceapigatewayidDeploymentStageprod9F073DB7"
+                                },
+                                "/POST/orders"
+                            ]
+                        ]
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-api-gateway-id/Default/orders/POST/ApiPermission.OrderInfraStackprodpracticeapigatewayid4671C6F3.POST..orders"
+                }
+            },
+            "practiceapigatewayidordersPOSTApiPermissionTestOrderInfraStackprodpracticeapigatewayid4671C6F3POSTordersB1C37734": {
+                "Type": "AWS::Lambda::Permission",
+                "Properties": {
+                    "Action": "lambda:InvokeFunction",
+                    "FunctionName": {
+                        "Fn::GetAtt": [
+                            "practiceapilambdafunctionid2902962A",
+                            "Arn"
+                        ]
+                    },
+                    "Principal": "apigateway.amazonaws.com",
+                    "SourceArn": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "arn:aws:execute-api:ap-southeast-2:509399604022:",
+                                {
+                                    "Ref": "practiceapigatewayid9A50BDA2"
+                                },
+                                "/test-invoke-stage/POST/orders"
+                            ]
+                        ]
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-api-gateway-id/Default/orders/POST/ApiPermission.Test.OrderInfraStackprodpracticeapigatewayid4671C6F3.POST..orders"
+                }
+            },
+            "practiceapigatewayidordersPOST12A9314D": {
+                "Type": "AWS::ApiGateway::Method",
+                "Properties": {
+                    "AuthorizationType": "NONE",
+                    "HttpMethod": "POST",
+                    "Integration": {
+                        "IntegrationHttpMethod": "POST",
+                        "RequestTemplates": {
+                            "application/json": "{ \"statusCode\": \"200\" }"
+                        },
+                        "Type": "AWS_PROXY",
+                        "Uri": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    "arn:aws:apigateway:ap-southeast-2:lambda:path/2015-03-31/functions/",
+                                    {
+                                        "Fn::GetAtt": [
+                                            "practiceapilambdafunctionid2902962A",
+                                            "Arn"
+                                        ]
+                                    },
+                                    "/invocations"
+                                ]
+                            ]
+                        }
+                    },
+                    "ResourceId": {
+                        "Ref": "practiceapigatewayidorders1ACB7C53"
+                    },
+                    "RestApiId": {
+                        "Ref": "practiceapigatewayid9A50BDA2"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-api-gateway-id/Default/orders/POST/Resource"
+                }
+            },
+            "practiceapigatewayidordersGETApiPermissionOrderInfraStackprodpracticeapigatewayid4671C6F3GETorders38FCF243": {
+                "Type": "AWS::Lambda::Permission",
+                "Properties": {
+                    "Action": "lambda:InvokeFunction",
+                    "FunctionName": {
+                        "Fn::GetAtt": [
+                            "practiceapilambdafunctionid2902962A",
+                            "Arn"
+                        ]
+                    },
+                    "Principal": "apigateway.amazonaws.com",
+                    "SourceArn": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "arn:aws:execute-api:ap-southeast-2:509399604022:",
+                                {
+                                    "Ref": "practiceapigatewayid9A50BDA2"
+                                },
+                                "/",
+                                {
+                                    "Ref": "practiceapigatewayidDeploymentStageprod9F073DB7"
+                                },
+                                "/GET/orders"
+                            ]
+                        ]
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-api-gateway-id/Default/orders/GET/ApiPermission.OrderInfraStackprodpracticeapigatewayid4671C6F3.GET..orders"
+                }
+            },
+            "practiceapigatewayidordersGETApiPermissionTestOrderInfraStackprodpracticeapigatewayid4671C6F3GETordersFC76DE53": {
+                "Type": "AWS::Lambda::Permission",
+                "Properties": {
+                    "Action": "lambda:InvokeFunction",
+                    "FunctionName": {
+                        "Fn::GetAtt": [
+                            "practiceapilambdafunctionid2902962A",
+                            "Arn"
+                        ]
+                    },
+                    "Principal": "apigateway.amazonaws.com",
+                    "SourceArn": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "arn:aws:execute-api:ap-southeast-2:509399604022:",
+                                {
+                                    "Ref": "practiceapigatewayid9A50BDA2"
+                                },
+                                "/test-invoke-stage/GET/orders"
+                            ]
+                        ]
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-api-gateway-id/Default/orders/GET/ApiPermission.Test.OrderInfraStackprodpracticeapigatewayid4671C6F3.GET..orders"
+                }
+            },
+            "practiceapigatewayidordersGET0B739A13": {
+                "Type": "AWS::ApiGateway::Method",
+                "Properties": {
+                    "AuthorizationType": "NONE",
+                    "HttpMethod": "GET",
+                    "Integration": {
+                        "IntegrationHttpMethod": "POST",
+                        "RequestTemplates": {
+                            "application/json": "{ \"statusCode\": \"200\" }"
+                        },
+                        "Type": "AWS_PROXY",
+                        "Uri": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    "arn:aws:apigateway:ap-southeast-2:lambda:path/2015-03-31/functions/",
+                                    {
+                                        "Fn::GetAtt": [
+                                            "practiceapilambdafunctionid2902962A",
+                                            "Arn"
+                                        ]
+                                    },
+                                    "/invocations"
+                                ]
+                            ]
+                        }
+                    },
+                    "ResourceId": {
+                        "Ref": "practiceapigatewayidorders1ACB7C53"
+                    },
+                    "RestApiId": {
+                        "Ref": "practiceapigatewayid9A50BDA2"
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-api-gateway-id/Default/orders/GET/Resource"
+                }
+            },
+            "practiceorderdashboardid14F9A840": {
+                "Type": "AWS::CloudWatch::Dashboard",
+                "Properties": {
+                    "DashboardBody": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "{\"widgets\":[{\"type\":\"metric\",\"width\":6,\"height\":6,\"x\":0,\"y\":0,\"properties\":{\"view\":\"timeSeries\",\"title\":\"Step Functions Executions\",\"region\":\"",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                "\",\"metrics\":[[\"AWS/States\",\"ExecutionsStarted\",\"StateMachineArn\",\"",
+                                {
+                                    "Ref": "practiceorderstatemachineidE804DBEA"
+                                },
+                                "\",{\"stat\":\"Sum\"}],[\"AWS/States\",\"ExecutionsSucceeded\",\"StateMachineArn\",\"",
+                                {
+                                    "Ref": "practiceorderstatemachineidE804DBEA"
+                                },
+                                "\",{\"stat\":\"Sum\",\"yAxis\":\"right\"}],[\"AWS/States\",\"ExecutionsFailed\",\"StateMachineArn\",\"",
+                                {
+                                    "Ref": "practiceorderstatemachineidE804DBEA"
+                                },
+                                "\",{\"stat\":\"Sum\",\"yAxis\":\"right\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":6,\"height\":6,\"x\":0,\"y\":6,\"properties\":{\"view\":\"timeSeries\",\"title\":\"API Gateway Requests\",\"region\":\"",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                "\",\"metrics\":[[\"AWS/ApiGateway\",\"Count\",\"ApiName\",\"practice-order-api\",{\"stat\":\"SampleCount\"}],[\"AWS/ApiGateway\",\"Latency\",\"ApiName\",\"practice-order-api\",{\"yAxis\":\"right\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":6,\"height\":6,\"x\":0,\"y\":12,\"properties\":{\"view\":\"timeSeries\",\"title\":\"WAF Metrics\",\"region\":\"",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                "\",\"metrics\":[[\"AWS/WAFV2\",\"AllowedRequests\",\"Region\",\"ap-southeast-2\",\"WebACL\",\"practice-order-api-waf\"],[\"AWS/WAFV2\",\"BlockedRequests\",\"Region\",\"ap-southeast-2\",\"WebACL\",\"practice-order-api-waf\",{\"yAxis\":\"right\"}]],\"yAxis\":{}}}]}"
+                            ]
+                        ]
+                    },
+                    "DashboardName": "practice-order-monitoring-dashboard"
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-order-dashboard-id/Resource"
+                }
+            },
+            "practicewafloggroup09F991EA": {
+                "Type": "AWS::Logs::LogGroup",
+                "Properties": {
+                    "LogGroupName": "aws-waf-logs-practice-order-api",
+                    "RetentionInDays": 30
+                },
+                "UpdateReplacePolicy": "Delete",
+                "DeletionPolicy": "Delete",
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-waf-log-group/Resource"
+                }
+            },
+            "practicewafwebaclid": {
+                "Type": "AWS::WAFv2::WebACL",
+                "Properties": {
+                    "DefaultAction": {
+                        "Allow": {}
+                    },
+                    "Description": "WAF WebACL for Order Processing API with comprehensive security rules",
+                    "Name": "practice-order-api-waf",
+                    "Rules": [
+                        {
+                            "Action": {
+                                "Block": {}
+                            },
+                            "Name": "RateLimitRule",
+                            "Priority": 1,
+                            "Statement": {
+                                "RateBasedStatement": {
+                                    "AggregateKeyType": "IP",
+                                    "Limit": 2000
+                                }
+                            },
+                            "VisibilityConfig": {
+                                "CloudWatchMetricsEnabled": true,
+                                "MetricName": "RateLimitRule",
+                                "SampledRequestsEnabled": true
+                            }
+                        },
+                        {
+                            "Name": "AWSManagedRulesCommonRuleSet",
+                            "OverrideAction": {
+                                "None": {}
+                            },
+                            "Priority": 2,
+                            "Statement": {
+                                "ManagedRuleGroupStatement": {
+                                    "ExcludedRules": [
+                                        {
+                                            "Name": "SizeRestrictions_BODY"
+                                        },
+                                        {
+                                            "Name": "GenericRFI_BODY"
+                                        }
+                                    ],
+                                    "Name": "AWSManagedRulesCommonRuleSet",
+                                    "VendorName": "AWS"
+                                }
+                            },
+                            "VisibilityConfig": {
+                                "CloudWatchMetricsEnabled": true,
+                                "MetricName": "CommonRuleSetMetric",
+                                "SampledRequestsEnabled": true
+                            }
+                        },
+                        {
+                            "Name": "AWSManagedRulesKnownBadInputsRuleSet",
+                            "OverrideAction": {
+                                "None": {}
+                            },
+                            "Priority": 3,
+                            "Statement": {
+                                "ManagedRuleGroupStatement": {
+                                    "Name": "AWSManagedRulesKnownBadInputsRuleSet",
+                                    "VendorName": "AWS"
+                                }
+                            },
+                            "VisibilityConfig": {
+                                "CloudWatchMetricsEnabled": true,
+                                "MetricName": "KnownBadInputsMetric",
+                                "SampledRequestsEnabled": true
+                            }
+                        },
+                        {
+                            "Name": "AWSManagedRulesAmazonIpReputationList",
+                            "OverrideAction": {
+                                "None": {}
+                            },
+                            "Priority": 4,
+                            "Statement": {
+                                "ManagedRuleGroupStatement": {
+                                    "Name": "AWSManagedRulesAmazonIpReputationList",
+                                    "VendorName": "AWS"
+                                }
+                            },
+                            "VisibilityConfig": {
+                                "CloudWatchMetricsEnabled": true,
+                                "MetricName": "IpReputationMetric",
+                                "SampledRequestsEnabled": true
+                            }
+                        },
+                        {
+                            "Action": {
+                                "Block": {}
+                            },
+                            "Name": "GeographicRestriction",
+                            "Priority": 5,
+                            "Statement": {
+                                "GeoMatchStatement": {
+                                    "CountryCodes": [
+                                        "CN",
+                                        "RU"
+                                    ]
+                                }
+                            },
+                            "VisibilityConfig": {
+                                "CloudWatchMetricsEnabled": true,
+                                "MetricName": "GeographicRestrictionMetric",
+                                "SampledRequestsEnabled": true
+                            }
+                        },
+                        {
+                            "Action": {
+                                "Block": {}
+                            },
+                            "Name": "SQLiRule",
+                            "Priority": 6,
+                            "Statement": {
+                                "SqliMatchStatement": {
+                                    "FieldToMatch": {
+                                        "Body": {}
+                                    },
+                                    "TextTransformations": [
+                                        {
+                                            "Priority": 0,
+                                            "Type": "URL_DECODE"
+                                        },
+                                        {
+                                            "Priority": 1,
+                                            "Type": "HTML_ENTITY_DECODE"
+                                        }
+                                    ]
+                                }
+                            },
+                            "VisibilityConfig": {
+                                "CloudWatchMetricsEnabled": true,
+                                "MetricName": "SQLiRuleMetric",
+                                "SampledRequestsEnabled": true
+                            }
+                        },
+                        {
+                            "Action": {
+                                "Block": {}
+                            },
+                            "Name": "XSSRule",
+                            "Priority": 7,
+                            "Statement": {
+                                "XssMatchStatement": {
+                                    "FieldToMatch": {
+                                        "Body": {}
+                                    },
+                                    "TextTransformations": [
+                                        {
+                                            "Priority": 0,
+                                            "Type": "URL_DECODE"
+                                        },
+                                        {
+                                            "Priority": 1,
+                                            "Type": "HTML_ENTITY_DECODE"
+                                        }
+                                    ]
+                                }
+                            },
+                            "VisibilityConfig": {
+                                "CloudWatchMetricsEnabled": true,
+                                "MetricName": "XSSRuleMetric",
+                                "SampledRequestsEnabled": true
+                            }
+                        }
+                    ],
+                    "Scope": "REGIONAL",
+                    "VisibilityConfig": {
+                        "CloudWatchMetricsEnabled": true,
+                        "MetricName": "practice-order-api-waf",
+                        "SampledRequestsEnabled": true
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-waf-webacl-id"
+                }
+            },
+            "practicewafassociationid": {
+                "Type": "AWS::WAFv2::WebACLAssociation",
+                "Properties": {
+                    "ResourceArn": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "arn:aws:apigateway:ap-southeast-2::/restapis/",
+                                {
+                                    "Ref": "practiceapigatewayid9A50BDA2"
+                                },
+                                "/stages/",
+                                {
+                                    "Ref": "practiceapigatewayidDeploymentStageprod9F073DB7"
+                                }
+                            ]
+                        ]
+                    },
+                    "WebACLArn": {
+                        "Fn::GetAtt": [
+                            "practicewafwebaclid",
+                            "Arn"
+                        ]
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/practice-waf-association-id"
+                }
+            },
+            "awswaflogsid": {
+                "Type": "AWS::WAFv2::LoggingConfiguration",
+                "Properties": {
+                    "LogDestinationConfigs": [
+                        {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    "arn:aws:logs:ap-southeast-2:509399604022:log-group:",
+                                    {
+                                        "Ref": "practicewafloggroup09F991EA"
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    "ResourceArn": {
+                        "Fn::GetAtt": [
+                            "practicewafwebaclid",
+                            "Arn"
+                        ]
+                    }
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/aws-waf-logs-id"
+                }
+            },
+            "CDKMetadata": {
+                "Type": "AWS::CDK::Metadata",
+                "Properties": {
+                    "Analytics": "v2:deflate64:H4sIAAAAAAAA/+1ZbW/bNhD+LeXHgtXSFOu2fHPcrjPm1IYTtMCMoKDJs8yaJjW+yHUF/feBpCjJecO2tIuX9kNg8nh3ujveczwyx9nzX37Ojp6QrXlG2fqZ4IusOreErjHZmg8V0OOselfQeYV4MWBMgzFg0Al6ijDakE+Dz2li3EKCHSq55LnTxHIl0cm8QpJsYI/lYld4wtQtBKcII8qZPiNmHZhqfIeE5iWxcE3ksr7Ew6V8Nx3iqPQ8SM0rRErCBVlwwe3uDyWT1rKgI9aMvapToei69amISkbFRI6Jk3SFTqx2gBEvypfDK+zEGJ7LUVG+bIIzkUMNjfeNPwdhRTCEsbfEviEWtmSHTuboKbo8GAMPw4rvYbpfmAISI/78aKachQuyENDRO9rAGEV5UNwy+8Hr0dT/dNpxA/0vDuwlEeYA9uJ+ZhyOJQdixuFYciBmRFiOpAUtoQVVPDOb2cBaQlcbkBafA3Wa290brVzhwSaE2g6EmDi7UE6yVDvKgjYHcAB3XwqPpLFEUvB9QzNsTvHoIl1xCaMNyXsR6UYR5wadVDf2DDVGpv+1nhXpuzXmZJNVMyW8CcQYtwF2uvMaC80l5QURA0qVk7YLo9uAFxjQLnZhD/+1tPdUkhzYVAlOuW+c5tUebTfQMnUxsaZeqGn6ROTwMs1q2KORFFxCu9aeTncu3q33ETj43YVvzIX7QfphcPZQq48gs27Xexl7x9hipvo/1WrJBeDI6dW0X7hQnvnah6+TGTu3xII/E81eqK+Tv5j+R6zoAchf2faQeTHDamxeZNWpo+twPylBG64ktL2Sho0qu8RFDIzVaueB56x6BQIsTBYfgXrlXiQqjwpx/GlyuUKLMO11Pf31GguVm6waqzw1cKIZvu0eVjRYkBHnP91unXf84YT/DzZ+ReEXR3dIh21PW1xjQTYLRrLqVydD9Z5XaNkM+8qdtLydrYhkAnS6hSiWFjyPculgSEa2V5pvSTHIkmslPej/3qcIY6/7MuHkSaXl0Tt4+2LI15SdoWyC3nDji2SNjYUiuWA+WGLWJhuHjB7JUq1hnyGrpkQTIUDgKTEGh7J8Fm+U8wqZ3rQXDwZLLrlXcKrY7jZfw5XTg4zL7gKNkYASBDpBg/G41z/6g+PGRuxBFuIlvOd8jUnB83i7z6oZGDso+NyX1TDai42hmhc9hxksiRN2qLSZalgKnq/sJDCECIUXgYnmOZfp+T+QzsCuFNsj/QaEgTZN6x17tWgAfgWFUDufKfPqBhtIwbuiSLjs2E0/Gy/UWOWcEuEfVPZC9LXowYnOGp+AOQQXEqn/LOIX8QyMcprCKTEQOg0cQxW3IywlpFpbxLWGwKWFXPezUfU2wtmV0vyzh3Z/1j4uJVKQb19g6hDd32E3gz8d175NaR6YbubHaBNMmoEplDTNNcAjzZlhV0x0s+zxuQHbbvtlwszZnpZ/qgR/D9Z/FawGXvfUEAAQBVoEzCtUEN0dNwWxqynRfcgk1hpToRzbEktXWfWKmNVCEe0xw9K4LWJNzN5zlkPsz9GWaMllnqpRmr47TgTO7Cp5Br7C7d9jD09XLDzJ9xpvybI8zqrhUr6HxWA4xu3oyn9WxirPucz3/jlb192eNMf0bX+XeOiMVZur/Hu7dYVnqlXJGWhf8fDAGLC+EnKZh8M/paufTJwtnK2xVAyyj+aH8vg4e/5jdvTko+H8WdPHZLP4+xf3vLbMsB4AAA=="
+                },
+                "Metadata": {
+                    "aws:cdk:path": "OrderInfraStack-prod/CDKMetadata/Default"
+                }
+            }
+        },
+        "Parameters": {
+            "SsmParameterValueawsserviceamiamazonlinuxlatestal2023amikernel61x8664C96584B6F00A464EAD1953AFF4B05118Parameter": {
+                "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
+                "Default": "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64"
+            },
+            "BootstrapVersion": {
+                "Type": "AWS::SSM::Parameter::Value<String>",
+                "Default": "/cdk-bootstrap/hnb659fds/version",
+                "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+            }
+        },
+        "Outputs": {
+            "practiceapigatewayidEndpoint3A828C56": {
+                "Value": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            "https://",
+                            {
+                                "Ref": "practiceapigatewayid9A50BDA2"
+                            },
+                            ".execute-api.ap-southeast-2.",
+                            {
+                                "Ref": "AWS::URLSuffix"
+                            },
+                            "/",
+                            {
+                                "Ref": "practiceapigatewayidDeploymentStageprod9F073DB7"
+                            },
+                            "/"
+                        ]
+                    ]
+                }
+            },
+            "ApiGatewayUrl": {
+                "Description": "API Gateway URL for Order Processing",
+                "Value": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            "https://",
+                            {
+                                "Ref": "practiceapigatewayid9A50BDA2"
+                            },
+                            ".execute-api.ap-southeast-2.",
+                            {
+                                "Ref": "AWS::URLSuffix"
+                            },
+                            "/",
+                            {
+                                "Ref": "practiceapigatewayidDeploymentStageprod9F073DB7"
+                            },
+                            "/"
+                        ]
+                    ]
+                }
+            },
+            "StateMachineArn": {
+                "Description": "Step Functions State Machine ARN",
+                "Value": {
+                    "Ref": "practiceorderstatemachineidE804DBEA"
+                }
+            },
+            "S3BucketName": {
+                "Description": "S3 Bucket for storing processed orders",
+                "Value": {
+                    "Ref": "practices3bucketid88CA439F"
+                }
+            },
+            "OrderProcessorLogGroup": {
+                "Description": "CloudWatch Log Group for Order Processor Lambda",
+                "Value": {
+                    "Ref": "practiceorderprocessorloggroup49C7A88D"
+                }
+            },
+            "S3StorageLogGroup": {
+                "Description": "CloudWatch Log Group for S3 Storage Lambda",
+                "Value": {
+                    "Ref": "practices3storageloggroup45DE2F36"
+                }
+            },
+            "ApiLambdaLogGroup": {
+                "Description": "CloudWatch Log Group for API Lambda",
+                "Value": {
+                    "Ref": "practiceapilambdaloggroupF92D90B1"
+                }
+            },
+            "StepFunctionsLogGroup": {
+                "Description": "CloudWatch Log Group for Step Functions",
+                "Value": {
+                    "Ref": "practicestepfunctionsloggroup80A43684"
+                }
+            },
+            "WAFWebACLArn": {
+                "Description": "WAF WebACL ARN for API Gateway protection",
+                "Value": {
+                    "Fn::GetAtt": [
+                        "practicewafwebaclid",
+                        "Arn"
+                    ]
+                }
+            },
+            "WAFWebACLId": {
+                "Description": "WAF WebACL ID for monitoring and management",
+                "Value": {
+                    "Fn::GetAtt": [
+                        "practicewafwebaclid",
+                        "Id"
+                    ]
+                }
+            },
+            "WAFLogGroup": {
+                "Description": "CloudWatch Log Group for WAF security logs",
+                "Value": {
+                    "Ref": "practicewafloggroup09F991EA"
+                }
+            },
+            "ShieldStandardInfo": {
+                "Description": "Shield Standard provides basic DDoS protection at no additional cost",
+                "Value": "AWS Shield Standard is automatically enabled for all AWS resources"
+            }
+        },
+        "Rules": {
+            "CheckBootstrapVersion": {
+                "Assertions": [
+                    {
+                        "Assert": {
+                            "Fn::Not": [
+                                {
+                                    "Fn::Contains": [
+                                        [
+                                            "1",
+                                            "2",
+                                            "3",
+                                            "4",
+                                            "5"
+                                        ],
+                                        {
+                                            "Ref": "BootstrapVersion"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+                    }
+                ]
+            }
+        }
+    },
+    "StagesAvailable": [
+        "Original",
+        "Processed"
+    ]
+}

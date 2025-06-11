@@ -7,20 +7,51 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
-    "test": "jest",
-    "cdk": "cdk"
+    "test": "jest --testPathIgnorePatterns=stepfunctions-local.test.js",
+    "test:all": "jest",
+    "test:infra": "jest test/order-infra.test.ts",
+    "test:watch": "jest --watch --testPathIgnorePatterns=stepfunctions-local.test.js",
+    "test:coverage": "jest --coverage --testPathIgnorePatterns=stepfunctions-local.test.js",
+    "test:stepfunctions": "jest --testPathPattern=stepfunctions",
+    "test:local": "jest --testPathPattern=local",
+    "cdk": "cdk",
+    "deploy": "./scripts/deploy.sh",
+    "deploy:dev": "./scripts/deploy.sh .env.dev",
+    "deploy:staging": "./scripts/deploy.sh .env.staging", 
+    "deploy:prod": "./scripts/deploy.sh .env.prod",
+    "validate": "./scripts/pre-deploy-checks.sh",
+    "validate:dev": "./scripts/pre-deploy-checks.sh .env.dev",
+    "validate:staging": "./scripts/pre-deploy-checks.sh .env.staging",
+    "validate:prod": "./scripts/pre-deploy-checks.sh .env.prod",
+    "lint": "tsc --noEmit",
+    "security:scan": "npm audit",
+    "cost:estimate": "cdk diff --context @aws-cdk/core:newStyleStackSynthesis=true",
+    "stepfunctions:local": "docker run -p 8083:8083 amazon/aws-stepfunctions-local",
+    "stepfunctions:test-state": "node test-scripts/test-state-runner.js",
+    "logs:api": "aws logs tail /aws/lambda/practice-api-lambda-function --follow",
+    "logs:processor": "aws logs tail /aws/lambda/practice-order-processor-function --follow",
+    "logs:storage": "aws logs tail /aws/lambda/practice-s3-storage-function --follow",
+    "destroy": "cdk destroy",
+    "destroy:dev": "ENV_NAME=dev ACCOUNT_ID=$ACCOUNT_ID REGION=$REGION cdk destroy OrderInfraStack-dev",
+    "setup": "npm install && cp env.template .env.dev && echo 'Please update .env.dev with your AWS account details'"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "@types/node": "22.7.9",
+    "aws-cdk": "2.1017.1",
     "jest": "^29.7.0",
     "ts-jest": "^29.2.5",
-    "aws-cdk": "2.1017.1",
     "ts-node": "^10.9.2",
     "typescript": "~5.6.3"
   },
   "dependencies": {
     "aws-cdk-lib": "2.198.0",
-    "constructs": "^10.0.0"
+    "constructs": "^10.0.0",
+    "dotenv": "^16.5.0",
+    "@aws-sdk/client-sfn": "^3.609.0",
+    "@aws-sdk/client-lambda": "^3.609.0",
+    "@aws-sdk/client-cloudwatch-logs": "^3.609.0",
+    "axios": "^1.6.0",
+    "uuid": "^9.0.1"
   }
 }
